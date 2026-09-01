@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simone Acc. Collection — Case Study — Josh Buenviaje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  .ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  :root{
+    --ink:#14140F;
+    --paper:#F6F4EC;
+    --paper-card:#ECE8DC;
+    --line:#D6D1C2;
+    --accent:#178A52;
+    --accent-dim:#D8F2E3;
+    --stamp:#D6402C;
+    --muted:#6E6A5D;
+    --paper-muted:#B9B5A6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .display{font-family:'Bricolage Grotesque',sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 32px;
+    background:rgba(246,244,236,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .navmark{color:var(--ink);display:block;}
+  .navlinks{display:flex;gap:36px;}
+  .navlinks a{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--muted);position:relative;padding-bottom:4px;
+  }
+  .navlinks a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .25s ease;}
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a:hover{color:var(--ink);}
+
+  /* PLACARD HEADER */
+  .placard{padding:150px 0 60px;border-bottom:1px solid var(--line);}
+  .placard-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+  .placard-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(2.6rem,7vw,4.6rem);line-height:1;margin-bottom:20px;}
+  .placard-title em{font-style:italic;font-weight:400;color:var(--accent);}
+  .placard-sub{font-size:1.15rem;color:var(--muted);max-width:640px;line-height:1.5;margin-bottom:48px;}
+  .meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);}
+  .meta-cell{padding:22px 24px;border-right:1px solid var(--line);}
+  .meta-cell:first-child{padding-left:0;}
+  .meta-cell:last-child{border-right:none;padding-right:0;}
+  .meta-label{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:8px;}
+  .meta-value{font-size:0.95rem;font-weight:500;}
+
+  /* HERO IMAGE */
+  .hero-image{aspect-ratio:3/4;height:560px;width:auto;margin:0 auto;max-width:100%;background:linear-gradient(135deg,#5C5748,#22201A);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:28px;}
+  .hero-image span{font-family:'IBM Plex Mono',monospace;color:rgba(255,255,255,0.7);font-size:0.72rem;position:relative;}
+
+  /* OVERVIEW */
+  .overview{padding:80px 0;border-bottom:1px solid var(--line);}
+  .overview-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;}
+  .overview-label{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+  .overview-text{font-family:'Bricolage Grotesque',sans-serif;font-size:1.5rem;line-height:1.4;font-weight:400;}
+
+  /* PROCESS SECTIONS */
+  .process-section{padding:100px 0;border-bottom:1px solid var(--line);}
+  .process-head{display:flex;gap:24px;align-items:baseline;margin-bottom:48px;}
+  .process-num{font-family:'IBM Plex Mono',monospace;font-size:1rem;color:var(--accent);}
+  .process-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:2.1rem;}
+
+  /* WING DIVIDER */
+  .wing-divider{background:var(--ink);color:var(--paper);padding:70px 0;position:relative;overflow:hidden;}
+  .wing-label{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:16px;position:relative;}
+  .wing-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(1.8rem,5vw,3rem);position:relative;}
+  .wing-title span{color:var(--accent);}
+  .wing-sub{font-size:0.98rem;color:#C9C6BA;max-width:600px;margin-top:14px;position:relative;line-height:1.5;}
+
+  /* CARD BLOCKS */
+  .subcard{background:var(--paper-card);border:1px solid var(--line);padding:40px;margin-top:40px;}
+  .subcard-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:28px;text-transform:uppercase;letter-spacing:-0.01em;}
+
+  /* GOALS / INSIGHTS (2x2 dark grid) */
+  .insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.12);}
+  .insight-item{background:var(--ink);padding:26px;}
+  .insight-tag{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:8px;}
+  .insight-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.05rem;color:var(--paper);margin-bottom:8px;}
+  .insight-desc{font-size:0.88rem;color:#B9B5A6;line-height:1.5;}
+
+  /* TWO-UP CONTEXT CARDS */
+  .cards-split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.12);}
+  .split-card{background:var(--ink);padding:30px;}
+  .split-tag{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+  .split-desc{font-size:0.9rem;color:#B9B5A6;line-height:1.6;margin-bottom:16px;}
+  .split-photos{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .split-photo{aspect-ratio:3/4;background:linear-gradient(135deg,#8C8875,#3D3B31);position:relative;overflow:hidden;}
+
+  /* PERSONA / USER GROUP CARD */
+  .user-group-card{background:var(--accent-dim);border:1px solid var(--accent);padding:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+  .ug-label{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+  .ug-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:1.9rem;}
+  .ug-desc{max-width:460px;font-size:0.95rem;color:var(--muted);line-height:1.5;}
+  .ug-hmw{margin-top:16px;font-size:0.88rem;font-style:italic;color:var(--muted);}
+
+  /* TREND / MOOD BOARD GRID */
+  .split-two{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
+  .body-text p{font-size:0.92rem;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+  .body-text ul{list-style:none;margin-bottom:14px;}
+  .body-text ul li{font-size:0.92rem;color:var(--muted);padding-left:14px;position:relative;margin-bottom:5px;}
+  .body-text ul li::before{content:'—';position:absolute;left:0;color:var(--accent);}
+  .body-text ul li b{color:var(--ink);}
+
+  /* TREND CAROUSEL (click-through) — reused for Trend Research, Mood
+     Boarding, and Sketching. Trend Research uses cover (uniform 16:9 deck
+     slides); Mood Boarding/Sketching add .contain so mixed-orientation
+     process photos display at their real aspect ratio, letterboxed by the
+     frame's own background instead of being cropped. */
+  .trend-carousel{display:flex;flex-direction:column;gap:12px;}
+  .tc-frame{position:relative;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#8C8875,#3D3B31);overflow:hidden;border:1px solid var(--line);}
+  .tc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:0;transition:opacity .35s ease;pointer-events:none;}
+  .tc-img.contain{object-fit:contain;object-position:center;}
+  .tc-img.active{opacity:1;pointer-events:auto;}
+  .tc-tag{position:absolute;top:10px;left:10px;background:var(--ink);color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;padding:4px 8px;z-index:2;}
+  .tc-controls{display:flex;align-items:center;justify-content:space-between;}
+  .tc-btn{width:36px;height:36px;flex:none;border:1px solid var(--ink);background:transparent;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s,color .18s;}
+  .tc-btn:hover{background:var(--ink);color:var(--paper);}
+  .tc-counter{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;letter-spacing:0.08em;color:var(--muted);}
+  .tc-counter .tc-current{color:var(--ink);font-weight:600;}
+  /* Dark-subcard variant — light-colored controls so they're visible
+     against the ink background (Materials, Sampling, etc.) */
+  .trend-carousel.on-dark .tc-frame{border-color:rgba(255,255,255,0.18);}
+  .trend-carousel.on-dark .tc-btn{border-color:rgba(255,255,255,0.4);color:var(--paper);}
+  .trend-carousel.on-dark .tc-btn:hover{background:var(--paper);color:var(--ink);}
+  .trend-carousel.on-dark .tc-counter{color:var(--paper-muted);}
+  .trend-carousel.on-dark .tc-counter .tc-current{color:var(--paper);}
+
+  /* GENERIC PHOTO GRID (materials/sampling/etc.) — sized to each photo's
+     real aspect ratio. Default 3:4 matches the vast majority of shots here;
+     the handful that differ (landscape workspace shots, near-square product
+     photos) get an inline aspect-ratio override right on their element. */
+  .photo-grid{display:grid;gap:10px;margin-bottom:20px;}
+  .photo-grid.cols-2{grid-template-columns:1fr 1fr;}
+  .photo-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .photo-grid.cols-4{grid-template-columns:repeat(4,1fr);}
+  .g-photo{aspect-ratio:3/4;background:linear-gradient(135deg,#8C8875,#3D3B31);position:relative;overflow:hidden;}
+  .g-photo.b{background:linear-gradient(135deg,#178A52,#0B3A24);}
+  .g-photo.c{background:linear-gradient(135deg,#D6402C,#7A1F14);}
+  .g-photo.d{background:linear-gradient(135deg,#5C5748,#22201A);}
+  .g-caption{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--muted);text-align:center;margin-top:6px;}
+
+  /* BRAND CHIPS */
+  .brand-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;}
+  .brand-chip{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.05em;
+    border:1px solid rgba(255,255,255,0.25);color:var(--paper);
+    padding:10px 16px;text-transform:uppercase;
+  }
+
+  /* NOTICINGS LIST */
+  .noticing-list{margin-top:16px;}
+  .noticing-list li{font-size:0.9rem;color:var(--muted);padding-left:16px;position:relative;margin-bottom:6px;list-style:none;}
+  .noticing-list li::before{content:'▪';position:absolute;left:0;color:var(--accent);font-size:0.7rem;top:3px;}
+
+  /* REFLECTIONS */
+  .reflection-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.12);}
+  .reflection-card{background:var(--ink);padding:32px;}
+  .reflection-num{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+  .reflection-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.15rem;color:var(--paper);margin-bottom:14px;}
+  .reflection-photos{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;}
+  .reflection-photo{aspect-ratio:3/4;background:linear-gradient(135deg,#8C8875,#3D3B31);position:relative;overflow:hidden;}
+  .reflection-photo:nth-child(2){background:linear-gradient(135deg,#178A52,#0B3A24);}
+  .reflection-desc{font-size:0.86rem;color:#B9B5A6;line-height:1.6;}
+
+  /* NEXT PROJECT FOOTER */
+  footer{background:var(--ink);color:var(--paper);padding:90px 0 40px;}
+  .next-label{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:20px;}
+  .next-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(2rem,6vw,3.4rem);margin-bottom:48px;}
+  .next-title em{color:var(--accent);font-style:italic;font-weight:400;}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:30px;border-top:1px solid rgba(255,255,255,0.15);font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--paper-muted);}
+  .footer-mark{color:var(--paper);}
+
+  @media (max-width:760px){
+    .meta-grid{grid-template-columns:repeat(2,1fr);}
+    .overview-grid, .split-two{grid-template-columns:1fr;}
+    .insight-grid, .cards-split, .reflection-grid{grid-template-columns:1fr;}
+    .photo-grid.cols-2, .photo-grid.cols-3, .photo-grid.cols-4{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* AUDIO GUIDE WIDGET */
+  .audio-guide{
+    position:fixed;
+    bottom:clamp(14px,3vw,24px);right:clamp(14px,3vw,24px);
+    z-index:200;
+    font-family:'Inter',sans-serif;
+    max-width:calc(100vw - 28px);
+  }
+  .ag-toggle{
+    display:flex;align-items:center;gap:9px;
+    background:var(--ink);color:var(--paper);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:clamp(10px,2vw,12px) clamp(13px,3vw,16px);border-radius:999px;
+    cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    font-family:'IBM Plex Mono',monospace;font-size:clamp(0.66rem,1.6vw,0.72rem);letter-spacing:0.08em;text-transform:uppercase;
+    transition:transform .2s ease, box-shadow .2s ease;
+    white-space:nowrap;
+  }
+  .ag-toggle:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.3);}
+  .ag-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;
+    animation:agpulse 1.6s ease-in-out infinite;}
+  @keyframes agpulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+  .ag-toggle svg{flex:none;}
+
+  .ag-panel{
+    position:absolute;bottom:calc(100% + 12px);right:0;
+    width:clamp(240px,80vw,320px);
+    max-width:calc(100vw - 28px);
+    background:var(--paper);
+    border:1px solid var(--ink);
+    box-shadow:0 16px 40px rgba(0,0,0,0.22);
+    padding:clamp(12px,3vw,16px);
+    display:none;
+    opacity:0;transform:translateY(8px);
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .audio-guide.open .ag-panel{display:block;}
+  .audio-guide.open .ag-panel.show{opacity:1;transform:translateY(0);}
+
+  .ag-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:9px;gap:12px;}
+  .ag-close{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);background:none;border:none;padding:0;line-height:1;flex:none;}
+  .ag-close:hover{color:var(--ink);}
+
+  .ag-tabs{display:flex;gap:14px;flex-wrap:wrap;}
+  .ag-tab{
+    font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.05em;text-transform:uppercase;
+    color:var(--muted);background:none;border:none;cursor:pointer;padding:0 0 3px 0;
+    border-bottom:1.5px solid transparent;
+  }
+  .ag-tab.active{color:var(--ink);border-bottom-color:var(--accent);}
+
+  .ag-frame-wrap{border-radius:8px;overflow:hidden;background:var(--paper-card);min-height:152px;}
+  .ag-frame-wrap iframe{display:block;width:100%;height:152px;border:none;}
+
+  .ag-footer{margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:0.64rem;color:var(--muted);text-align:right;}
+  .ag-footer a{color:var(--muted);}
+  .ag-footer a:hover{color:var(--accent);}  /* SIDE SECTION NAV */
+  .toc{
+    position:fixed;left:28px;top:50%;transform:translateY(-50%);
+    z-index:150;
+    display:flex;flex-direction:column;gap:13px;
+    width:172px;
+  }
+  .toc-item{
+    display:flex;align-items:center;justify-content:flex-start;gap:9px;
+    font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.01em;
+    color:var(--paper-muted);
+    text-align:left;
+    transition:color .2s ease;
+  }
+  .toc-item:hover{color:var(--muted);}
+  .toc-dot{
+    width:6px;height:6px;border-radius:50%;flex:none;
+    background:transparent;border:1.3px solid var(--paper-muted);
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .toc-item.active{color:var(--ink);font-weight:600;}
+  .toc-item.active .toc-dot{background:var(--accent);border-color:var(--accent);}
+  .toc-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left;}
+
+  @media (max-width:1300px){
+    .toc{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" aria-label="Back to homepage"><svg class="navmark" width="26" height="30" viewBox="0 0 44 50" fill="none">
+    <circle cx="13" cy="11" r="3.6" fill="currentColor"/>
+    <circle cx="30" cy="11" r="3.6" fill="currentColor"/>
+    <path d="M30 21 V35 C30 43 21 45.5 13.5 40" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" fill="none"/>
+  </svg></a>
+  <div class="navlinks">
+    <a href="index.html#work">Work</a>
+    <a href="about.html">About</a>
+    <!-- Résumé link: points to the résumé on Google Drive. -->
+    <a href="https://drive.google.com/file/d/1j6kaJTfAUeaCM25LnBCSx-hFJtdSB7Q1/view?usp=sharing" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</nav>
+
+<section class="placard">
+  <div class="wrap">
+    <div class="placard-eyebrow">Case Study — Catalog No. 02</div>
+    <h1 class="placard-title">Simone Acc. <em>Collection</em></h1>
+    <p class="placard-sub">Contributed to the design and development of luxury handbags and leather goods through concept ideation and prototyping.</p>
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="meta-label">Client</div><div class="meta-value">Simone Acc. Collection</div></div>
+      <div class="meta-cell"><div class="meta-label">Role</div><div class="meta-value">Design & Market Research Intern</div></div>
+      <div class="meta-cell"><div class="meta-label">Timeline</div><div class="meta-value">8 Weeks, 2025</div></div>
+      <div class="meta-cell"><div class="meta-label">Team</div><div class="meta-value">Individual Projects</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="hero-image">
+  <img class="ph-img" src="simone/hero.jpg" alt="Simone Acc. Collection, green quilted bag" style="object-position:center 20%;" onerror="this.style.display='none'">
+</div>
+
+<section class="overview" id="sec-overview">
+  <div class="wrap overview-grid">
+    <div class="overview-label">Project Overview</div>
+    <div class="overview-text">During an 8-week internship partnered with Stanford's Global Studies Program, I joined Simone Acc. Collection, a leather goods manufacturer based in Seoul, South Korea, working across both their in-house design team (0914) and their Global Sales team (Tory Burch).</div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-01">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">01</span><span class="process-title">Initial Goals</span></div>
+    <div class="insight-grid">
+      <div class="insight-item">
+        <div class="insight-tag">Goal 01</div>
+        <div class="insight-title">Develop a Clearer Design POV</div>
+        <div class="insight-desc">Refine my personal aesthetic by sketching, prototyping, and iterating on original samples.</div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-tag">Goal 02</div>
+        <div class="insight-title">Expand Market Understanding</div>
+        <div class="insight-desc">Gain insight into Korean fashion trends and global consumer preferences to design for diverse markets.</div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-tag">Goal 03</div>
+        <div class="insight-title">Strengthen Design Visualization</div>
+        <div class="insight-desc">Communicate ideas clearly through concept sketching and design pitch decks, moving efficiently from concept to sample.</div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-tag">Goal 04</div>
+        <div class="insight-title">Experience Korea</div>
+        <div class="insight-desc">Make the most of my first time working and traveling abroad.</div>
+      </div>
+    </div>
+
+    <div class="subcard">
+      <div class="subcard-title">Understanding Simone</div>
+      <div class="cards-split">
+        <div class="split-card">
+          <div class="split-tag">What Is Simone?</div>
+          <div class="split-desc">Simone Acc. Collection is a leading Korean luxury handbag and accessories manufacturer, known for producing high-quality leather goods for global designer brands.</div>
+          <div class="split-photos">
+            <div class="split-photo"><img class="ph-img" src="simone/photo-01.jpg" alt="Simone Acc. Collection process photo 1" onerror="this.style.display='none'"></div>
+            <div class="split-photo" style="background:linear-gradient(135deg,#178A52,#0B3A24);"><img class="ph-img" src="simone/photo-01b.jpg" alt="Simone Acc. Collection, 0914 tag detail" onerror="this.style.display='none'"></div>
+          </div>
+        </div>
+        <div class="split-card">
+          <div class="split-tag">What Is 0914?</div>
+          <div class="split-desc">0914 is Simone's own premium leather-goods brand, built to showcase the company's craftsmanship, material quality, and design expertise. The brand focuses on timeless, human-centered, small-batch design.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wing-divider">
+  <div class="wrap">
+    <div class="wing-label">Wing 01</div>
+    <div class="wing-title">0914 — <span>The Design Team</span></div>
+    <div class="wing-sub">Working within Simone's in-house design team on individual projects, translating seasonal trends into 0914's next collection.</div>
+  </div>
+</div>
+
+<section class="process-section" id="sec-02">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">02</span><span class="process-title">Research &amp; Needfinding</span></div>
+
+    <div class="subcard">
+      <div class="subcard-title">Understanding Trends</div>
+      <div class="split-two">
+        <div class="trend-carousel" id="trendCarousel">
+          <div class="tc-frame">
+            <div class="tc-tag mono">Trend Research</div>
+            <img class="tc-img active" src="simone/trend-01.jpg" alt="FW 26/27 trend research slide 1 — Season Concept: Empowered Play" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-02.jpg" alt="FW 26/27 trend research slide 2 — Hardwares" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-03.jpg" alt="FW 26/27 trend research slide 3 — Season Concept: Geo-Logic" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-04.jpg" alt="FW 26/27 trend research slide 4 — Season Concept: Kintentional" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-05.jpg" alt="FW 26/27 trend research slide 5 — Season Concept: Solid Materials" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-06.jpg" alt="FW 26/27 trend research slide 6 — Color" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-07.jpg" alt="FW 26/27 trend research slide 7 — Materials, sustainability and regenerative focus" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-08.jpg" alt="FW 26/27 trend research slide 8 — Materials, fluffy, leather, perforated, saffiano, suede" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-09.jpg" alt="FW 26/27 trend research slide 9 — Style & Details, ornamentalism" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-10.jpg" alt="FW 26/27 trend research slide 10 — Style & Details, 9-to-5 look" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-11.jpg" alt="FW 26/27 trend research slide 11 — Color, redirection and rebellion" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/trend-12.jpg" alt="FW 26/27 trend research slide 12 — Hardwares detail" onerror="this.style.display='none'">
+          </div>
+          <div class="tc-controls">
+            <button class="tc-btn" data-carousel-prev aria-label="Previous slide">&larr;</button>
+            <span class="tc-counter"><span class="tc-current" data-carousel-current>01</span> / <span data-carousel-total>12</span></span>
+            <button class="tc-btn" data-carousel-next aria-label="Next slide">&rarr;</button>
+          </div>
+        </div>
+        <div class="body-text">
+          <p>Using resources from Simone's design team, I researched proposed trends for the FW 26/27 season and built a style guide for the team to reference, thinking through general themes, color palettes, and silhouettes.</p>
+          <p><b>Common threads:</b> ornamentalism, functionality, pockets, and playful looks balanced with earth tones.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcard" style="background:var(--ink);border-color:rgba(255,255,255,0.1);padding:0;">
+      <div class="user-group-card" style="border:none;">
+        <div>
+          <div class="ug-label">User Group — 0914</div>
+          <div class="ug-title">0914 Customers</div>
+          <div class="ug-hmw">How might we meld current fashion trends with 0914's brand?</div>
+        </div>
+        <div class="ug-desc">0914 customers value artisan-level craftsmanship and high-quality materials. They struggle to find leather goods on the market that feel uniquely human, rather than designed for the mass market.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-03">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">03</span><span class="process-title">Ideation</span></div>
+
+    <div class="subcard">
+      <div class="subcard-title">Mood Boarding</div>
+      <div class="split-two">
+        <div class="body-text">
+          <p>Pulling from both FW 26/27 trends and elements of 0914's brand identity:</p>
+          <ul>
+            <li><b>Handcrafted</b> design</li>
+            <li><b>Geologic:</b> earth-tones + metallic elements</li>
+            <li><b>Intentional</b> design</li>
+            <li><b>Artistic</b> + vintage styling</li>
+          </ul>
+          <p>This board reflects a direction rooted in tactility, slow craftsmanship, and objects that carry a sense of history.</p>
+        </div>
+        <div class="trend-carousel" id="moodCarousel">
+          <div class="tc-frame" style="aspect-ratio:4/5;">
+            <div class="tc-tag mono">Mood Board</div>
+            <img class="tc-img active" src="simone/photo-08.jpg" alt="Simone Acc. Collection mood board — vintage handcrafted handbag" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/photo-09.jpg" alt="Simone Acc. Collection mood board — Venice canal painting, artistic reference" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/photo-10.jpg" alt="Simone Acc. Collection mood board — tooled leather bag with floral detail" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/photo-11.jpg" alt="Simone Acc. Collection mood board — woven textile handbag" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/photo-12.jpg" alt="Simone Acc. Collection mood board — woven leather strip swatch" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/photo-13.jpg" alt="Simone Acc. Collection mood board — embossed floral leather bag" onerror="this.style.display='none'">
+          </div>
+          <div class="tc-controls">
+            <button class="tc-btn" data-carousel-prev aria-label="Previous slide">&larr;</button>
+            <span class="tc-counter"><span class="tc-current" data-carousel-current>01</span> / <span data-carousel-total>06</span></span>
+            <button class="tc-btn" data-carousel-next aria-label="Next slide">&rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcard" style="background:var(--ink);border-color:rgba(255,255,255,0.1);">
+      <div class="subcard-title" style="color:var(--paper);">Materials</div>
+      <div class="trend-carousel on-dark" id="materials0914Carousel" style="max-width:280px;margin:0 auto;">
+        <div class="tc-frame" style="aspect-ratio:3/4;">
+          <img class="tc-img active" src="simone/photo-16.jpg" alt="Simone Acc. Collection process photo 16" onerror="this.style.display='none'">
+          <img class="tc-img" src="simone/photo-17.jpg" alt="Simone Acc. Collection process photo 17" onerror="this.style.display='none'">
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn" data-carousel-prev aria-label="Previous slide">&larr;</button>
+          <span class="tc-counter"><span class="tc-current" data-carousel-current>01</span> / <span data-carousel-total>02</span></span>
+          <button class="tc-btn" data-carousel-next aria-label="Next slide">&rarr;</button>
+        </div>
+      </div>
+      <div class="body-text" style="margin-top:16px;">
+        <p style="color:#B9B5A6;">There was a plethora of fabrics at our disposal, ranging from cow, sheep, goat, and vegetable leather, as well as suedes and linings. The wide variety let us explore different textures, structures, and finishes while conceptualizing designs.</p>
+      </div>
+    </div>
+
+    <div class="subcard">
+      <div class="subcard-title">Sketching</div>
+      <div class="split-two">
+        <div class="trend-carousel" id="sketchCarousel">
+          <div class="tc-frame" style="aspect-ratio:1/1;">
+            <div class="tc-tag mono">Sketches</div>
+            <img class="tc-img active" src="simone/photo-18.jpg" alt="Simone Acc. Collection process photo 18" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/photo-19.jpg" alt="Simone Acc. Collection process photo 19" onerror="this.style.display='none'">
+          </div>
+          <div class="tc-controls">
+            <button class="tc-btn" data-carousel-prev aria-label="Previous slide">&larr;</button>
+            <span class="tc-counter"><span class="tc-current" data-carousel-current>01</span> / <span data-carousel-total>02</span></span>
+            <button class="tc-btn" data-carousel-next aria-label="Next slide">&rarr;</button>
+          </div>
+        </div>
+        <div class="body-text">
+          <p>Based on the mood boards and materials I'd gathered, I began sketching ideas, leaning into "handcrafted design" through woven materials and canvas that could be custom-dyed to create unique patterns.</p>
+          <p>Contrast between materials mattered a lot to me here. It plays well into the resurgence of vintage fashion, and it's something I genuinely enjoy as a designer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" style="border-bottom:none;" id="sec-04">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">04</span><span class="process-title">Final Designs — 0914</span></div>
+
+    <div class="subcard" style="background:var(--ink);border-color:rgba(255,255,255,0.1);">
+      <div class="subcard-title" style="color:var(--paper);">Final Concepts</div>
+      <div class="photo-grid cols-2">
+        <div class="g-photo c" style="aspect-ratio:536/546;"><img class="ph-img" src="simone/photo-20.jpg" alt="Simone Acc. Collection process photo 20 — leather samples and sketches" onerror="this.style.display='none'"></div>
+        <div class="g-photo" style="aspect-ratio:5576/3655;"><img class="ph-img" src="simone/final-pitch.jpg" alt="Simone Acc. Collection final concept pitch boards — Dolo style in Canvas and Intertwined materials" onerror="this.style.display='none'"></div>
+      </div>
+      <div class="body-text">
+        <p style="color:#B9B5A6;">I created 3 sketches I felt could realistically be implemented in 0914's next seasonal collection, including <b style="color:var(--paper);">Interwoven</b>, a design highlighting hand-crafted construction through woven materials, and <b style="color:var(--paper);">Canvas</b>, a silhouette featuring a custom-dyeable canvas panel that gives each piece its own pattern-driven identity.</p>
+      </div>
+    </div>
+
+    <div class="subcard">
+      <div class="body-text">
+        <p>At my final concept pitch, I presented my designs to 0914's design team: sketches, a digital mockup, mood boards, and leather samples of my proposed materials.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wing-divider">
+  <div class="wrap">
+    <div class="wing-label">Wing 02</div>
+    <div class="wing-title">Global Sales — <span>Tory Burch</span></div>
+    <div class="wing-sub">Midway through the internship, I transitioned to Simone's Global Sales team, placed with Tory Burch for the remaining 4 weeks.</div>
+  </div>
+</div>
+
+<section class="process-section" id="sec-05">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">05</span><span class="process-title">The Transition</span></div>
+    <div class="subcard" style="background:var(--ink);border-color:rgba(255,255,255,0.1);">
+      <div class="subcard-title" style="color:var(--paper);">Global Sales @ Simone</div>
+      <div class="body-text">
+        <p style="color:#B9B5A6;">Simone manufactures for multiple high-end brands, including Tory Burch, Michael Kors, Coach, and Kate Spade, translating each brand's design concepts into products built with Simone's materials, machinery, and technical expertise. I was placed with Tory Burch's Global Sales team for the remaining 4 weeks.</p>
+      </div>
+      <div class="brand-row">
+        <div class="brand-chip">Tory Burch</div>
+        <div class="brand-chip">Michael Kors</div>
+        <div class="brand-chip">Coach</div>
+        <div class="brand-chip">Kate Spade</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-06">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">06</span><span class="process-title">Needfinding</span></div>
+
+    <div class="subcard" style="background:var(--ink);border-color:rgba(255,255,255,0.1);padding:0;">
+      <div class="user-group-card" style="border:none;">
+        <div>
+          <div class="ug-label">User Group — Tory Burch</div>
+          <div class="ug-title">Young Women (20s–30s)</div>
+          <div class="ug-hmw">How can I create pieces that feel unique to me as a designer, while also satisfying our target audience?</div>
+        </div>
+        <div class="ug-desc">Tory Burch customers are young, ambitious women stepping into their professional lives, looking for pieces polished yet versatile enough to carry them from the office to evening plans.</div>
+      </div>
+    </div>
+
+    <div class="subcard">
+      <div class="subcard-title">Market Research</div>
+      <div class="split-two">
+        <div>
+          <div class="body-text">
+            <p>Visited a luxury department store and several galleries to get a sense of popular trends in the high-end leather accessory industry.</p>
+          </div>
+          <ul class="noticing-list">
+            <li>Lots of hanging charms</li>
+            <li>Heavy usage of chains</li>
+            <li>High barrier to entry: pricing not very accessible for younger buyers</li>
+          </ul>
+        </div>
+        <div class="trend-carousel" id="marketResearchCarousel">
+          <div class="tc-frame" style="aspect-ratio:1/1;">
+            <img class="tc-img active" src="simone/photo-24.jpg" alt="Simone Acc. Collection process photo 24" onerror="this.style.display='none'">
+            <img class="tc-img" src="simone/photo-25.jpg" alt="Simone Acc. Collection process photo 25" onerror="this.style.display='none'">
+          </div>
+          <div class="tc-controls">
+            <button class="tc-btn" data-carousel-prev aria-label="Previous slide">&larr;</button>
+            <span class="tc-counter"><span class="tc-current" data-carousel-current>01</span> / <span data-carousel-total>02</span></span>
+            <button class="tc-btn" data-carousel-next aria-label="Next slide">&rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-07">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">07</span><span class="process-title">Ideation &amp; Prototyping</span></div>
+
+    <div class="subcard">
+      <div class="subcard-title">Sketching + Ideation</div>
+      <div class="trend-carousel" id="sketchIdeationCarousel" style="max-width:280px;margin:0 auto;">
+        <div class="tc-frame" style="aspect-ratio:1/1;">
+          <img class="tc-img contain active" src="simone/photo-27.jpg" alt="Simone Acc. Collection process photo 27" onerror="this.style.display='none'">
+          <img class="tc-img contain" src="simone/photo-28.jpg" alt="Simone Acc. Collection process photo 28" onerror="this.style.display='none'">
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn" data-carousel-prev aria-label="Previous slide">&larr;</button>
+          <span class="tc-counter"><span class="tc-current" data-carousel-current>01</span> / <span data-carousel-total>02</span></span>
+          <button class="tc-btn" data-carousel-next aria-label="Next slide">&rarr;</button>
+        </div>
+      </div>
+      <div class="body-text" style="margin-top:16px;">
+        <p>Each week, my task was to create one physical sample tailored to the sub-team I was assigned, while still bringing my own point of view as a designer, sketching broadly and experimenting with materials popular for that sub-team.</p>
+      </div>
+    </div>
+
+    <div class="subcard" style="background:var(--ink);border-color:rgba(255,255,255,0.1);">
+      <div class="subcard-title" style="color:var(--paper);">Materials</div>
+      <div class="trend-carousel on-dark" id="materialsTBCarousel" style="max-width:280px;margin:0 auto;">
+        <div class="tc-frame" style="aspect-ratio:3/4;">
+          <img class="tc-img active" src="simone/photo-29.jpg" alt="Simone Acc. Collection process photo 29" onerror="this.style.display='none'">
+          <img class="tc-img" src="simone/photo-30.jpg" alt="Simone Acc. Collection process photo 30" onerror="this.style.display='none'">
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn" data-carousel-prev aria-label="Previous slide">&larr;</button>
+          <span class="tc-counter"><span class="tc-current" data-carousel-current>01</span> / <span data-carousel-total>02</span></span>
+          <button class="tc-btn" data-carousel-next aria-label="Next slide">&rarr;</button>
+        </div>
+      </div>
+      <div class="body-text" style="margin-top:16px;">
+        <p style="color:#B9B5A6;">As with 0914, there was a wide range of fabrics available: cow, sheep, goat, and vegetable leather, plus suedes and linings. The biggest difference: each Tory Burch sub-team used very specific, distinct materials, which I had to factor into every prototype.</p>
+      </div>
+    </div>
+
+    <div class="subcard" style="background:var(--ink);border-color:rgba(255,255,255,0.1);">
+      <div class="subcard-title" style="color:var(--paper);">Protos + Patterns</div>
+      <div class="split-two">
+        <div>
+          <div class="split-tag">10-Minute Prototypes</div>
+          <div class="body-text"><p style="color:#B9B5A6;">One of my supervisors challenged me to grab a few scrap pieces of leather and construct a bag prototype from a sketch, in 10 minutes.</p></div>
+          <div class="photo-grid cols-2" style="margin-top:12px;">
+            <div class="g-photo"><img class="ph-img" src="simone/photo-31.jpg" alt="Simone Acc. Collection process photo 31" onerror="this.style.display='none'"></div>
+          </div>
+        </div>
+        <div>
+          <div class="split-tag">From Sketches to Digital Models</div>
+          <div class="body-text"><p style="color:#B9B5A6;">Once sketches were finalized, they were passed to the Patterns team, who built digital models of the designs, ultimately sent to the Sample Room to be physically prototyped by the Stitch Masters.</p></div>
+          <div class="photo-grid cols-2" style="margin-top:12px;">
+            <div class="g-photo c"><img class="ph-img" src="simone/photo-32.jpg" alt="Simone Acc. Collection process photo 32" onerror="this.style.display='none'"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcard" style="background:var(--ink);border-color:rgba(255,255,255,0.1);">
+      <div class="subcard-title" style="color:var(--paper);">Sampling</div>
+      <div class="trend-carousel on-dark" id="samplingCarousel" style="max-width:280px;margin:0 auto;">
+        <div class="tc-frame" style="aspect-ratio:3/4;">
+          <img class="tc-img active" src="simone/photo-33.jpg" alt="Simone Acc. Collection process photo 33" onerror="this.style.display='none'">
+          <img class="tc-img" src="simone/photo-34.jpg" alt="Simone Acc. Collection process photo 34" onerror="this.style.display='none'">
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn" data-carousel-prev aria-label="Previous slide">&larr;</button>
+          <span class="tc-counter"><span class="tc-current" data-carousel-current>01</span> / <span data-carousel-total>02</span></span>
+          <button class="tc-btn" data-carousel-next aria-label="Next slide">&rarr;</button>
+        </div>
+      </div>
+      <div class="body-text" style="margin-top:16px;">
+        <p style="color:#B9B5A6;">I checked in with the Stitch Masters as they worked from printed versions of the digital model, following up regularly to make sure things were on track, with occasional conversations about hand-feel, hardware choices, and general construction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" style="border-bottom:none;" id="sec-08">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">08</span><span class="process-title">Final Design — Global Sales</span></div>
+    <div class="photo-grid cols-4" style="margin-bottom:0;">
+      <div><div class="g-photo"><img class="ph-img" src="simone/photo-35.jpg" alt="Simone Acc. Collection process photo 35" onerror="this.style.display='none'"></div><div class="g-caption">Week 1</div></div>
+      <div><div class="g-photo b"><img class="ph-img" src="simone/photo-36.jpg" alt="Simone Acc. Collection process photo 36" onerror="this.style.display='none'"></div><div class="g-caption">Week 2</div></div>
+      <div><div class="g-photo c"><img class="ph-img" src="simone/photo-37.jpg" alt="Simone Acc. Collection process photo 37" onerror="this.style.display='none'"></div><div class="g-caption">Week 3</div></div>
+      <div><div class="g-photo d"><img class="ph-img" src="simone/photo-38.jpg" alt="Simone Acc. Collection process photo 38" onerror="this.style.display='none'"></div><div class="g-caption">Week 3</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" style="border-bottom:none;" id="sec-09">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">09</span><span class="process-title">Reflections</span></div>
+    <div class="reflection-grid">
+      <div class="reflection-card">
+        <div class="reflection-num">Revisiting Goal 01</div>
+        <div class="reflection-title">A Clearer Design POV</div>
+        <div class="reflection-photos"><div class="reflection-photo"><img class="ph-img" src="simone/photo-39.jpg" alt="Simone Acc. Collection process photo 39" onerror="this.style.display='none'"></div><div class="reflection-photo"><img class="ph-img" src="simone/photo-40.jpg" alt="Simone Acc. Collection process photo 40" onerror="this.style.display='none'"></div></div>
+        <div class="reflection-desc">Working alongside incredibly creative designers pushed me to trust my own instincts and articulate ideas with more clarity. I also got to attend a fashion show for the first time, a lifelong dream that expanded my creative perspective and shaped the direction of my own design voice.</div>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-num">Revisiting Goal 02</div>
+        <div class="reflection-title">Cultural &amp; Market Understanding</div>
+        <div class="reflection-photos"><div class="reflection-photo"><img class="ph-img" src="simone/photo-41.jpg" alt="Simone Acc. Collection process photo 41" onerror="this.style.display='none'"></div><div class="reflection-photo"><img class="ph-img" src="simone/photo-42.jpg" alt="Simone Acc. Collection process photo 42" onerror="this.style.display='none'"></div></div>
+        <div class="reflection-desc">Conducting market research in Seoul, one of the trendiest fashion hubs in the world, let me observe emerging street styles and consumer behavior firsthand, strengthening my ability to spot broader global design trends.</div>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-num">Revisiting Goal 03</div>
+        <div class="reflection-title">Design Visualization Skills</div>
+        <div class="reflection-photos"><div class="reflection-photo"><img class="ph-img" src="simone/photo-43.jpg" alt="Simone Acc. Collection process photo 43" onerror="this.style.display='none'"></div><div class="reflection-photo"><img class="ph-img" src="simone/photo-44.jpg" alt="Simone Acc. Collection process photo 44" onerror="this.style.display='none'"></div></div>
+        <div class="reflection-desc">I learned that sketching isn't scary. It's just another way to convey ideas, however rough. This was the most I've ever sketched in my life, and I'm grateful I pushed myself further into that side of design.</div>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-num">Revisiting Goal 04</div>
+        <div class="reflection-title">Experience Korea!</div>
+        <div class="reflection-photos"><div class="reflection-photo"><img class="ph-img" src="simone/photo-45.jpg" alt="Simone Acc. Collection process photo 45" onerror="this.style.display='none'"></div><div class="reflection-photo"><img class="ph-img" src="photography/frame-07.jpg" alt="Sea Temple, Sokcho, South Korea" onerror="this.style.display='none'"></div></div>
+        <div class="reflection-desc">Truly one of the most incredible experiences of my life. I explored Seoul, Anyang, Suwon, Sokcho, and Goryeong. Two months full of incredible people, food, and memories made.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="next-label">Next in the Catalog</div>
+    <a href="case-study-node.html"><div class="next-title">Node <em>Foundation</em> →</div></a>
+    <div class="footer-bottom">
+      <svg class="footer-mark" width="32" height="36" viewBox="0 0 44 50" fill="none">
+        <circle cx="13" cy="11" r="3.6" fill="currentColor"/>
+        <circle cx="30" cy="11" r="3.6" fill="currentColor"/>
+        <path d="M30 21 V35 C30 43 21 45.5 13.5 40" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span>© 2026 Josh Buenviaje</span>
+    </div>
+  </div>
+</footer>
+
+
+<nav class="toc" id="toc">
+  <a href="#sec-overview" class="toc-item" data-target="sec-overview"><span class="toc-dot"></span><span class="toc-label">Overview</span></a>
+  <a href="#sec-01" class="toc-item" data-target="sec-01"><span class="toc-dot"></span><span class="toc-label">01 — Initial Goals</span></a>
+  <a href="#sec-02" class="toc-item" data-target="sec-02"><span class="toc-dot"></span><span class="toc-label">02 — Needfinding</span></a>
+  <a href="#sec-03" class="toc-item" data-target="sec-03"><span class="toc-dot"></span><span class="toc-label">03 — Ideation</span></a>
+  <a href="#sec-04" class="toc-item" data-target="sec-04"><span class="toc-dot"></span><span class="toc-label">04 — Final Designs</span></a>
+  <a href="#sec-05" class="toc-item" data-target="sec-05"><span class="toc-dot"></span><span class="toc-label">05 — The Transition</span></a>
+  <a href="#sec-06" class="toc-item" data-target="sec-06"><span class="toc-dot"></span><span class="toc-label">06 — Needfinding</span></a>
+  <a href="#sec-07" class="toc-item" data-target="sec-07"><span class="toc-dot"></span><span class="toc-label">07 — Prototyping</span></a>
+  <a href="#sec-08" class="toc-item" data-target="sec-08"><span class="toc-dot"></span><span class="toc-label">08 — Final Design</span></a>
+  <a href="#sec-09" class="toc-item" data-target="sec-09"><span class="toc-dot"></span><span class="toc-label">09 — Reflections</span></a>
+</nav>
+
+<div class="audio-guide" id="audioGuide">
+  <div class="ag-panel" id="agPanel">
+    <div class="ag-head">
+      <div class="ag-tabs" id="agTabs">
+        <button class="ag-tab active" data-uri="spotify:playlist:53VFJnUIcrfUlIhhLTmUji">Josh's Top 10</button>
+        <button class="ag-tab" data-uri="spotify:playlist:1d93rfrg8ZQheUn2gqzK49">Browsing</button>
+      </div>
+      <button class="ag-close" id="agClose" aria-label="Close">✕</button>
+    </div>
+    <div class="ag-frame-wrap">
+      <div id="agFrame"></div>
+    </div>
+    <div class="ag-footer">Curated on <a href="#" target="_blank" rel="noopener">Spotify</a></div>
+  </div>
+  <div class="ag-toggle" id="agToggle">
+    <span class="ag-dot"></span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 15V9a8 8 0 0116 0v6M4 15a2 2 0 002 2h1a1 1 0 001-1v-4a1 1 0 00-1-1H5a1 1 0 00-1 1v3zM20 15a2 2 0 01-2 2h-1a1 1 0 01-1-1v-4a1 1 0 011-1h1a1 1 0 011 1v3z" stroke="currentColor" stroke-width="1.6"/></svg>
+    Listen to a Tune
+  </div>
+</div>
+
+<script>
+  // Audio guide widget — persists playback across page navigation via
+  // Spotify's iFrame Embed API + localStorage. Each page mounts a fresh
+  // controller on load; if a previous page had music going, we pick the
+  // same playlist + position back up. (Browsers can still block autoplay
+  // without a fresh click, so occasionally a tap on play is needed.)
+  const agWidget = document.getElementById('audioGuide');
+  const agToggle = document.getElementById('agToggle');
+  const agClose = document.getElementById('agClose');
+  const agPanel = document.getElementById('agPanel');
+  const agFrameEl = document.getElementById('agFrame');
+  const agTabs = document.querySelectorAll('.ag-tab');
+  const AG_STATE_KEY = 'jb_portfolio_audio_state';
+  let agController = null;
+  let agSaveTimer = null;
+
+  function readAgState(){
+    try { const raw = localStorage.getItem(AG_STATE_KEY); return raw ? JSON.parse(raw) : null; }
+    catch (e) { return null; }
+  }
+  function writeAgState(partial){
+    try {
+      const current = readAgState() || {};
+      localStorage.setItem(AG_STATE_KEY, JSON.stringify(Object.assign(current, partial)));
+    } catch (e) { /* localStorage unavailable — playback just won't persist */ }
+  }
+  function setActiveTabByUri(uri){
+    agTabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-uri') === uri));
+  }
+
+  function mountController(uri, resumeSeconds, autoplay){
+    if (!window.SpotifyIframeApi) return;
+    window.SpotifyIframeApi.createController(agFrameEl, { uri: uri }, (controller) => {
+      agController = controller;
+      controller.addListener('playback_update', (e) => {
+        const d = e.data || {};
+        clearTimeout(agSaveTimer);
+        agSaveTimer = setTimeout(() => {
+          writeAgState({ uri: uri, position: d.position || 0, paused: !!d.isPaused, savedAt: Date.now() });
+        }, 250);
+      });
+      controller.addListener('ready', () => {
+        if (resumeSeconds) controller.seek(resumeSeconds);
+        if (autoplay) controller.play();
+      });
+    });
+  }
+
+  function loadTab(tab, resumeSeconds, autoplay){
+    const uri = tab.getAttribute('data-uri');
+    setActiveTabByUri(uri);
+    writeAgState({ uri: uri, position: resumeSeconds || 0, paused: autoplay === false });
+    if (agController) {
+      agController.loadUri(uri);
+      if (autoplay !== false) agController.play();
+    } else {
+      mountController(uri, resumeSeconds, autoplay !== false);
+    }
+  }
+
+  window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    window.SpotifyIframeApi = IFrameAPI;
+    const saved = readAgState();
+    if (saved && saved.uri) {
+      setActiveTabByUri(saved.uri);
+      mountController(saved.uri, saved.position, !saved.paused);
+      if (saved.open) {
+        agWidget.classList.add('open');
+        requestAnimationFrame(() => agPanel.classList.add('show'));
+      }
+    }
+  };
+
+  agToggle.addEventListener('click', () => {
+    const opening = !agWidget.classList.contains('open');
+    agWidget.classList.toggle('open');
+    writeAgState({ open: opening });
+    if (opening && !agController) {
+      loadTab(agTabs[0], 0, true);
+    }
+    if (opening) {
+      requestAnimationFrame(() => agPanel.classList.add('show'));
+    } else {
+      agPanel.classList.remove('show');
+    }
+  });
+
+  agClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    agWidget.classList.remove('open');
+    agPanel.classList.remove('show');
+    writeAgState({ open: false });
+  });
+
+  agTabs.forEach(tab => tab.addEventListener('click', () => loadTab(tab, 0, true)));
+
+  // Side section nav (scrollspy)
+  const tocItems = document.querySelectorAll('.toc-item');
+  const tocSections = Array.from(tocItems).map(item =>
+    document.getElementById(item.getAttribute('data-target'))
+  ).filter(Boolean);
+
+  const tocObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const item = document.querySelector(`.toc-item[data-target="${entry.target.id}"]`);
+      if (!item) return;
+      if (entry.isIntersecting) {
+        tocItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+  tocSections.forEach(sec => tocObserver.observe(sec));
+
+  // Click-through carousels (Trend Research, Mood Boarding, Sketching)
+  function initCarousel(root){
+    const slides = Array.from(root.querySelectorAll('.tc-img'));
+    const prevBtn = root.querySelector('[data-carousel-prev]');
+    const nextBtn = root.querySelector('[data-carousel-next]');
+    const currentEl = root.querySelector('[data-carousel-current]');
+    const totalEl = root.querySelector('[data-carousel-total]');
+    let idx = 0;
+    if (totalEl) totalEl.textContent = String(slides.length).padStart(2, '0');
+
+    function show(i){
+      idx = (i + slides.length) % slides.length;
+      slides.forEach((s, n) => s.classList.toggle('active', n === idx));
+      if (currentEl) currentEl.textContent = String(idx + 1).padStart(2, '0');
+    }
+
+    prevBtn.addEventListener('click', () => show(idx - 1));
+    nextBtn.addEventListener('click', () => show(idx + 1));
+
+    const frame = root.querySelector('.tc-frame');
+    frame.addEventListener('click', (e) => {
+      const rect = frame.getBoundingClientRect();
+      const clickedRight = (e.clientX - rect.left) > rect.width / 2;
+      show(idx + (clickedRight ? 1 : -1));
+    });
+
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(idx - 1);
+      if (e.key === 'ArrowRight') show(idx + 1);
+    });
+  }
+
+  ['trendCarousel', 'moodCarousel', 'sketchCarousel', 'materials0914Carousel', 'marketResearchCarousel', 'sketchIdeationCarousel', 'materialsTBCarousel', 'samplingCarousel'].forEach(id => {
+    const root = document.getElementById(id);
+    if (root) initCarousel(root);
+  });
+
+</script>
+
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+</body>
+</html>

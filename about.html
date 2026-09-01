@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Josh Buenviaje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14140F;
+    --paper:#F6F4EC;
+    --paper-card:#ECE8DC;
+    --line:#D6D1C2;
+    --accent:#178A52;
+    --accent-dim:#D8F2E3;
+    --stamp:#D6402C;
+    --muted:#6E6A5D;
+    --paper-muted:#B9B5A6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 32px;
+    background:rgba(20,20,15,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    transition:background .2s ease, border-color .2s ease;
+  }
+  nav.light{background:rgba(246,244,236,0.9);border-bottom:1px solid var(--line);}
+  .navmark{color:var(--paper);display:block;transition:color .2s ease;}
+  nav.light .navmark{color:var(--ink);}
+  .navlinks{display:flex;gap:36px;}
+  .navlinks a{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--paper);position:relative;padding-bottom:4px;transition:color .2s ease;
+  }
+  nav.light .navlinks a{color:var(--ink);}
+  .navlinks a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .25s ease;}
+  .navlinks a:hover::after{width:100%;}
+
+  /* INTRO */
+  .intro{
+    background:var(--ink);color:var(--paper);
+    padding:150px 0 80px;
+  }
+  .intro-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:24px;}
+  .intro-eyebrow span{color:var(--accent);}
+  .intro-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2.6rem,7vw,5rem);line-height:1;margin-bottom:32px;}
+  .intro-title em{font-style:normal;color:var(--accent);}
+  .intro-bio{font-size:1.1rem;line-height:1.6;color:#C9C6BA;max-width:640px;margin-bottom:20px;}
+  .intro-bio b{color:var(--paper);}
+  .intro-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:start;margin-top:28px;}
+  .intro-photo{position:relative;overflow:hidden;}
+  .intro-photo.a{aspect-ratio:3/4;background:linear-gradient(135deg,#178A52,#0B3A24);}
+  .intro-photo img{object-position:center 15%;}
+  .intro-photo span{position:absolute;bottom:16px;left:16px;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:rgba(255,255,255,0.65);z-index:1;}
+
+  /* Easy-to-swap placeholder images: replace the file at the src path, or
+     edit the src attribute directly. If a file is missing, onerror hides the
+     broken image and the colored background behind it shows through instead. */
+  .ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* SNAPSHOTS */
+  .snapshot-carousel{overflow:hidden;}
+  .snapshot-track{
+    display:flex;gap:12px;width:max-content;
+    animation:snapshot-scroll 32s linear infinite;
+  }
+  .snapshot-carousel:hover .snapshot-track{animation-play-state:paused;}
+  @keyframes snapshot-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .snapshot-photo{
+    flex:0 0 auto;width:240px;height:300px;
+    position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#8C8875,#3D3B31);
+  }
+  .snapshot-photo:nth-child(6n+2){background:linear-gradient(135deg,#178A52,#0B3A24);}
+  .snapshot-photo:nth-child(6n+3){background:linear-gradient(135deg,#D6402C,#7A1F14);}
+  .snapshot-photo:nth-child(6n+5){background:linear-gradient(135deg,#5C5748,#22201A);}
+  .snapshot-more{
+    display:inline-block;margin-top:20px;
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;letter-spacing:0.05em;text-transform:uppercase;
+    color:var(--ink);border-bottom:1.5px solid var(--ink);padding-bottom:3px;
+  }
+  .snapshot-more:hover{color:var(--accent);border-color:var(--accent);}
+
+  /* COLLECTION INTRO */
+  .collection-intro{padding:90px 0 40px;border-bottom:1px solid var(--line);}
+  .section-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+  .section-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:2.4rem;margin-bottom:16px;}
+  .section-sub{font-size:1rem;color:var(--muted);max-width:520px;line-height:1.5;}
+
+  /* CATEGORY */
+  .category{padding:56px 0;border-bottom:1px solid var(--line);}
+  .category-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:32px;flex-wrap:wrap;gap:10px;}
+  .category-label{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);}
+  .category-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.6rem;}
+  .category-count{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted);}
+
+  .entry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .entry-card{background:var(--paper);padding:26px 24px;}
+  .entry-tag{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+  .entry-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.15rem;margin-bottom:10px;}
+  .entry-desc{font-size:0.88rem;color:var(--muted);line-height:1.55;}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:var(--paper);padding:100px 0 40px;}
+  .footer-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:20px;}
+  .footer-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:3rem;margin-bottom:56px;max-width:640px;}
+  .footer-title em{color:var(--accent);font-style:normal;}
+  .plates{border-top:1px solid rgba(255,255,255,0.15);}
+  .plate{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.15);font-family:'IBM Plex Mono',monospace;font-size:0.85rem;}
+  .plate span:first-child{color:var(--paper-muted);letter-spacing:0.1em;text-transform:uppercase;font-size:0.72rem;}
+  .plate a:hover{color:var(--accent);}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:60px;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--paper-muted);}
+  .footer-mark{color:var(--paper);}
+
+  @media (max-width:760px){
+    .intro-layout{grid-template-columns:1fr;}
+    .intro-photo.a{max-width:220px;}
+    .entry-grid{grid-template-columns:1fr;}
+    .snapshot-photo{width:190px;height:240px;}
+    .footer-title{font-size:2.1rem;}
+  }
+
+  /* AUDIO GUIDE WIDGET */
+  .audio-guide{
+    position:fixed;
+    bottom:clamp(14px,3vw,24px);right:clamp(14px,3vw,24px);
+    z-index:200;
+    font-family:'Inter',sans-serif;
+    max-width:calc(100vw - 28px);
+  }
+  .ag-toggle{
+    display:flex;align-items:center;gap:9px;
+    background:var(--ink);color:var(--paper);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:clamp(10px,2vw,12px) clamp(13px,3vw,16px);border-radius:999px;
+    cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    font-family:'IBM Plex Mono',monospace;font-size:clamp(0.66rem,1.6vw,0.72rem);letter-spacing:0.08em;text-transform:uppercase;
+    transition:transform .2s ease, box-shadow .2s ease;
+    white-space:nowrap;
+  }
+  .ag-toggle:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.3);}
+  .ag-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;
+    animation:agpulse 1.6s ease-in-out infinite;}
+  @keyframes agpulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+  .ag-toggle svg{flex:none;}
+
+  .ag-panel{
+    position:absolute;bottom:calc(100% + 12px);right:0;
+    width:clamp(240px,80vw,320px);
+    max-width:calc(100vw - 28px);
+    background:var(--paper);
+    border:1px solid var(--ink);
+    box-shadow:0 16px 40px rgba(0,0,0,0.22);
+    padding:clamp(12px,3vw,16px);
+    display:none;
+    opacity:0;transform:translateY(8px);
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .audio-guide.open .ag-panel{display:block;}
+  .audio-guide.open .ag-panel.show{opacity:1;transform:translateY(0);}
+
+  .ag-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:9px;gap:12px;}
+  .ag-close{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);background:none;border:none;padding:0;line-height:1;flex:none;}
+  .ag-close:hover{color:var(--ink);}
+
+  .ag-tabs{display:flex;gap:14px;flex-wrap:wrap;}
+  .ag-tab{
+    font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.05em;text-transform:uppercase;
+    color:var(--muted);background:none;border:none;cursor:pointer;padding:0 0 3px 0;
+    border-bottom:1.5px solid transparent;
+  }
+  .ag-tab.active{color:var(--ink);border-bottom-color:var(--accent);}
+
+  .ag-frame-wrap{border-radius:8px;overflow:hidden;background:var(--paper-card);min-height:152px;}
+  .ag-frame-wrap iframe{display:block;width:100%;height:152px;border:none;}
+
+  .ag-footer{margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:0.64rem;color:var(--muted);text-align:right;}
+  .ag-footer a{color:var(--muted);}
+  .ag-footer a:hover{color:var(--accent);}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" aria-label="Back to homepage"><svg class="navmark" width="26" height="30" viewBox="0 0 44 50" fill="none">
+    <circle cx="13" cy="11" r="3.6" fill="currentColor"/>
+    <circle cx="30" cy="11" r="3.6" fill="currentColor"/>
+    <path d="M30 21 V35 C30 43 21 45.5 13.5 40" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" fill="none"/>
+  </svg></a>
+  <div class="navlinks">
+    <a href="index.html#work">Work</a>
+    <a href="about.html">About</a>
+    <!-- Résumé link: points to the résumé on Google Drive. -->
+    <a href="https://drive.google.com/file/d/1j6kaJTfAUeaCM25LnBCSx-hFJtdSB7Q1/view?usp=sharing" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</nav>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-eyebrow">Curator's Note <span>·</span> On the Person Behind the Work</div>
+    <h1 class="intro-title">A Bit About <em>Josh</em></h1>
+    <div class="intro-layout">
+      <div class="intro-text">
+        <p class="intro-bio">I'm originally from San Diego, CA (about twenty minutes from the Mexico border), and now a senior at Stanford studying Design.</p>
+        <p class="intro-bio">At my core, <b>I love people.</b> Their stories, their energy, and the small moments that make life feel meaningful. Whether it's through my design work, my digital camera photography, or the other ways I spend my free time, I try to amplify the authentic human experience in everything I do.</p>
+      </div>
+      <div class="intro-photo a">
+        <img class="ph-img" src="about/intro-1.jpg" alt="Photo of Josh" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="collection-intro">
+  <div class="wrap">
+    <div class="section-eyebrow">Permanent Collection</div>
+    <div class="section-title">Field Notes &amp; Favorites</div>
+    <div class="section-sub">A running list of things that mean a lot to me, updated whenever something new earns a spot on the shelf.</div>
+  </div>
+</section>
+
+<section class="category">
+  <div class="wrap">
+    <div class="category-head">
+      <div>
+        <div class="category-label">Collection A</div>
+        <div class="category-name">Books &amp; Films</div>
+      </div>
+      <div class="category-count">3 Objects</div>
+    </div>
+    <div class="entry-grid">
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 001 — Book</div>
+        <div class="entry-title">The Little Prince</div>
+        <div class="entry-desc">My favorite book, hands down. I reread it every year, and the meaning always shifts.</div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 002 — Film Studio</div>
+        <div class="entry-title">Studio Ghibli</div>
+        <div class="entry-desc">Some of the most beautiful animation I've ever seen. Whisper of the Heart is my favorite.</div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 003 — Film</div>
+        <div class="entry-title">Up</div>
+        <div class="entry-desc">A reminder to keep exploring the unknown, and to hug the people you love a little tighter.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="category">
+  <div class="wrap">
+    <div class="category-head">
+      <div>
+        <div class="category-label">Collection B</div>
+        <div class="category-name">Songs That Mean a Lot</div>
+      </div>
+      <div class="category-count">3 Objects</div>
+    </div>
+    <div class="entry-grid">
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 004 — Song</div>
+        <div class="entry-title">Dancing Queen — ABBA</div>
+        <div class="entry-desc">My karaoke song since I was three. Some of my closest friends still call it "The Josh Song."</div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 005 — Song</div>
+        <div class="entry-title">Nocturne — Chopin</div>
+        <div class="entry-desc">My favorite piece I've ever played on piano, and still one of my biggest sources of inspiration.</div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 006 — Song</div>
+        <div class="entry-title">When Fortune Smiles — Kitty Craft</div>
+        <div class="entry-desc">A song that always brings me back to one of my best friends.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="category">
+  <div class="wrap">
+    <div class="category-head">
+      <div>
+        <div class="category-label">Collection C</div>
+        <div class="category-name">Favorite Things in My Room</div>
+      </div>
+      <div class="category-count">3 Objects</div>
+    </div>
+    <div class="entry-grid">
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 007 — Wall</div>
+        <div class="entry-title">Wall of Pokémon Cards</div>
+        <div class="entry-desc">I've loved Pokémon since I was nine, and I'm glad the collection finally found a use.</div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 008 — Textile</div>
+        <div class="entry-title">Crochet From My Sister</div>
+        <div class="entry-desc">A shoutout to my incredibly talented sister and best friend.</div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 009 — Photos</div>
+        <div class="entry-title">Lots and Lots of Photos</div>
+        <div class="entry-desc">Capturing moments is one of my favorite pastimes. I love getting to look back.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="category">
+  <div class="wrap">
+    <div class="category-head">
+      <div>
+        <div class="category-label">Collection D</div>
+        <div class="category-name">Miscellaneous</div>
+      </div>
+      <div class="category-count">3 Objects</div>
+    </div>
+    <div class="entry-grid">
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 010 — Habit</div>
+        <div class="entry-title">Reality TV, Always</div>
+        <div class="entry-desc">Survivor, Big Brother, The Amazing Race, RuPaul's Drag Race. I love them all.</div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 011 — Meal</div>
+        <div class="entry-title">Chicken Tender Connoisseur</div>
+        <div class="entry-desc">You can never go wrong with tenders, fries, and a side of ketchup.</div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-tag">Obj. 012 — Belief</div>
+        <div class="entry-title">Alternative Education</div>
+        <div class="entry-desc">I went to a project-based learning school, and it changed how I think. Shoutout High Tech High.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="collection-intro" style="border-bottom:none;padding-bottom:0;">
+  <div class="wrap">
+    <div class="section-title">Some of My Favorite Photos</div>
+  </div>
+</section>
+
+<section class="category" style="border-bottom:none;padding-top:32px;">
+  <div class="wrap">
+    <div class="snapshot-carousel">
+      <div class="snapshot-track">
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-01.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-02.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-03.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-04.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-05.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-06.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-07.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-08.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-09.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-10.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-11.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-12.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <!-- Duplicate set below makes the auto-scroll loop seamless. Keep both sets identical and in sync if you edit the photos. -->
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-01.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-02.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-03.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-04.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-05.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-06.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-07.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-08.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-09.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-10.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-11.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+        <div class="snapshot-photo"><img class="ph-img" src="photography/frame-12.jpg" alt="Snapshot" onerror="this.style.display='none'"></div>
+      </div>
+    </div>
+    <a href="captured-moments.html" class="snapshot-more">See more in Captured Moments →</a>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-eyebrow">Visitor Information</div>
+    <div class="footer-title">Ready to connect <em>whenever you are.</em></div>
+    <div class="plates">
+      <div class="plate"><span>Email</span><a href="mailto:jbuenvi@stanford.edu">jbuenvi@stanford.edu</a></div>
+      <div class="plate"><span>LinkedIn</span><a href="https://www.linkedin.com/in/jbuenviaje" target="_blank" rel="noopener">linkedin.com/in/jbuenviaje</a></div>
+    </div>
+    <div class="footer-bottom">
+      <svg class="footer-mark" width="32" height="36" viewBox="0 0 44 50" fill="none">
+        <circle cx="13" cy="11" r="3.6" fill="currentColor"/>
+        <circle cx="30" cy="11" r="3.6" fill="currentColor"/>
+        <path d="M30 21 V35 C30 43 21 45.5 13.5 40" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span>© 2026 Josh Buenviaje</span>
+    </div>
+  </div>
+</footer>
+
+
+<div class="audio-guide" id="audioGuide">
+  <div class="ag-panel" id="agPanel">
+    <div class="ag-head">
+      <div class="ag-tabs" id="agTabs">
+        <button class="ag-tab active" data-uri="spotify:playlist:53VFJnUIcrfUlIhhLTmUji">Josh's Top 10</button>
+        <button class="ag-tab" data-uri="spotify:playlist:1d93rfrg8ZQheUn2gqzK49">Browsing</button>
+      </div>
+      <button class="ag-close" id="agClose" aria-label="Close">✕</button>
+    </div>
+    <div class="ag-frame-wrap">
+      <div id="agFrame"></div>
+    </div>
+    <div class="ag-footer">Curated on <a href="#" target="_blank" rel="noopener">Spotify</a></div>
+  </div>
+  <div class="ag-toggle" id="agToggle">
+    <span class="ag-dot"></span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 15V9a8 8 0 0116 0v6M4 15a2 2 0 002 2h1a1 1 0 001-1v-4a1 1 0 00-1-1H5a1 1 0 00-1 1v3zM20 15a2 2 0 01-2 2h-1a1 1 0 01-1-1v-4a1 1 0 011-1h1a1 1 0 011 1v3z" stroke="currentColor" stroke-width="1.6"/></svg>
+    Listen to a Tune
+  </div>
+</div>
+
+<script>
+  // Audio guide widget — persists playback across page navigation via
+  // Spotify's iFrame Embed API + localStorage. Each page mounts a fresh
+  // controller on load; if a previous page had music going, we pick the
+  // same playlist + position back up. (Browsers can still block autoplay
+  // without a fresh click, so occasionally a tap on play is needed.)
+  const agWidget = document.getElementById('audioGuide');
+  const agToggle = document.getElementById('agToggle');
+  const agClose = document.getElementById('agClose');
+  const agPanel = document.getElementById('agPanel');
+  const agFrameEl = document.getElementById('agFrame');
+  const agTabs = document.querySelectorAll('.ag-tab');
+  const AG_STATE_KEY = 'jb_portfolio_audio_state';
+  let agController = null;
+  let agSaveTimer = null;
+
+  function readAgState(){
+    try { const raw = localStorage.getItem(AG_STATE_KEY); return raw ? JSON.parse(raw) : null; }
+    catch (e) { return null; }
+  }
+  function writeAgState(partial){
+    try {
+      const current = readAgState() || {};
+      localStorage.setItem(AG_STATE_KEY, JSON.stringify(Object.assign(current, partial)));
+    } catch (e) { /* localStorage unavailable — playback just won't persist */ }
+  }
+  function setActiveTabByUri(uri){
+    agTabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-uri') === uri));
+  }
+
+  function mountController(uri, resumeSeconds, autoplay){
+    if (!window.SpotifyIframeApi) return;
+    window.SpotifyIframeApi.createController(agFrameEl, { uri: uri }, (controller) => {
+      agController = controller;
+      controller.addListener('playback_update', (e) => {
+        const d = e.data || {};
+        clearTimeout(agSaveTimer);
+        agSaveTimer = setTimeout(() => {
+          writeAgState({ uri: uri, position: d.position || 0, paused: !!d.isPaused, savedAt: Date.now() });
+        }, 250);
+      });
+      controller.addListener('ready', () => {
+        if (resumeSeconds) controller.seek(resumeSeconds);
+        if (autoplay) controller.play();
+      });
+    });
+  }
+
+  function loadTab(tab, resumeSeconds, autoplay){
+    const uri = tab.getAttribute('data-uri');
+    setActiveTabByUri(uri);
+    writeAgState({ uri: uri, position: resumeSeconds || 0, paused: autoplay === false });
+    if (agController) {
+      agController.loadUri(uri);
+      if (autoplay !== false) agController.play();
+    } else {
+      mountController(uri, resumeSeconds, autoplay !== false);
+    }
+  }
+
+  window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    window.SpotifyIframeApi = IFrameAPI;
+    const saved = readAgState();
+    if (saved && saved.uri) {
+      setActiveTabByUri(saved.uri);
+      mountController(saved.uri, saved.position, !saved.paused);
+      if (saved.open) {
+        agWidget.classList.add('open');
+        requestAnimationFrame(() => agPanel.classList.add('show'));
+      }
+    }
+  };
+
+  agToggle.addEventListener('click', () => {
+    const opening = !agWidget.classList.contains('open');
+    agWidget.classList.toggle('open');
+    writeAgState({ open: opening });
+    if (opening && !agController) {
+      loadTab(agTabs[0], 0, true);
+    }
+    if (opening) {
+      requestAnimationFrame(() => agPanel.classList.add('show'));
+    } else {
+      agPanel.classList.remove('show');
+    }
+  });
+
+  agClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    agWidget.classList.remove('open');
+    agPanel.classList.remove('show');
+    writeAgState({ open: false });
+  });
+
+  agTabs.forEach(tab => tab.addEventListener('click', () => loadTab(tab, 0, true)));
+
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight * 0.7) {
+      nav.classList.add('light');
+    } else {
+      nav.classList.remove('light');
+    }
+  });
+</script>
+
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+</body>
+</html>
