@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Node Foundation — Case Study — Josh Buenviaje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14140F;
+    --paper:#F6F4EC;
+    --paper-card:#ECE8DC;
+    --line:#D6D1C2;
+    --accent:#178A52;
+    --accent-dim:#D8F2E3;
+    --stamp:#D6402C;
+    --muted:#6E6A5D;
+    --paper-muted:#B9B5A6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .display{font-family:'Bricolage Grotesque',sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 32px;
+    background:rgba(246,244,236,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .navmark{color:var(--ink);display:block;}
+  .navlinks{display:flex;gap:36px;}
+  .navlinks a{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--muted);position:relative;padding-bottom:4px;
+  }
+  .navlinks a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .25s ease;}
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a:hover{color:var(--ink);}
+
+  /* Easy-to-swap placeholder images: replace the file at the src path, or
+     edit the src attribute directly. If a file is missing, onerror hides the
+     broken image and the colored background behind it shows through instead. */
+  .ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* PLACARD HEADER */
+  .placard{padding:150px 0 60px;border-bottom:1px solid var(--line);}
+  .placard-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+  .placard-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(2.6rem,7vw,4.6rem);line-height:1;margin-bottom:20px;}
+  .placard-title em{font-style:italic;font-weight:400;color:var(--accent);}
+  .placard-sub{font-size:1.15rem;color:var(--muted);max-width:640px;line-height:1.5;margin-bottom:48px;}
+  .meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);}
+  .meta-cell{padding:22px 24px;border-right:1px solid var(--line);}
+  .meta-cell:first-child{padding-left:0;}
+  .meta-cell:last-child{border-right:none;padding-right:0;}
+  .meta-label{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:8px;}
+  .meta-value{font-size:0.95rem;font-weight:500;}
+
+  /* HERO IMAGE */
+  .hero-image{aspect-ratio:4/3;height:560px;width:auto;margin:0 auto;max-width:100%;background:linear-gradient(135deg,#5C5748,#22201A);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:28px;}
+  .hero-image span{font-family:'IBM Plex Mono',monospace;color:rgba(255,255,255,0.7);font-size:0.72rem;position:relative;z-index:1;}
+
+  /* OVERVIEW */
+  .overview{padding:80px 0;border-bottom:1px solid var(--line);}
+  .overview-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;}
+  .overview-label{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+  .overview-text{font-family:'Bricolage Grotesque',sans-serif;font-size:1.5rem;line-height:1.4;font-weight:400;}
+
+  /* PROCESS SECTIONS */
+  .process-section{padding:100px 0;border-bottom:1px solid var(--line);}
+  .process-head{display:flex;gap:24px;align-items:baseline;margin-bottom:48px;}
+  .process-num{font-family:'IBM Plex Mono',monospace;font-size:1rem;color:var(--accent);}
+  .process-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:2.1rem;}
+
+  /* CARD BLOCKS */
+  .subcard{background:var(--paper-card);border:1px solid var(--line);padding:40px;margin-top:40px;}
+  .subcard-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:28px;text-transform:uppercase;letter-spacing:-0.01em;}
+
+  /* ROLE LIST */
+  .role-list{list-style:none;}
+  .role-list li{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline;}
+  .role-list li:last-child{border-bottom:none;}
+  .role-num{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);flex:none;width:26px;}
+  .role-text{font-size:0.95rem;color:var(--muted);line-height:1.5;}
+  .role-text b{color:var(--ink);}
+
+  /* EXHIBIT CARDS */
+  .exhibit-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.12);}
+  .exhibit-card{background:var(--ink);padding:0;}
+  .exhibit-image{aspect-ratio:5/2;position:relative;overflow:hidden;background:linear-gradient(135deg,#178A52,#0B3A24);}
+  .exhibit-card:nth-child(2) .exhibit-image{background:linear-gradient(135deg,#D6402C,#7A1F14);}
+  .exhibit-body{padding:26px;}
+  .exhibit-tag{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+  .exhibit-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.2rem;color:var(--paper);margin-bottom:10px;}
+  .exhibit-desc{font-size:0.88rem;color:#B9B5A6;line-height:1.55;}
+
+  /* MARKETING SUPPORT */
+  .support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .support-item{background:var(--paper);padding:26px;}
+  .support-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1rem;margin-bottom:8px;}
+  .support-desc{font-size:0.86rem;color:var(--muted);line-height:1.5;}
+
+  /* REFLECTIONS */
+  .takeaway-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.12);margin-top:12px;}
+  .takeaway-col{background:var(--ink);padding:32px 30px;}
+  .tk-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.1rem;color:var(--paper);margin-bottom:12px;text-transform:uppercase;}
+  .tk-desc{font-size:0.9rem;color:#B9B5A6;line-height:1.6;}
+
+  /* NEXT PROJECT FOOTER */
+  footer{background:var(--ink);color:var(--paper);padding:90px 0 40px;}
+  .next-label{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:20px;}
+  .next-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(2rem,6vw,3.4rem);margin-bottom:48px;}
+  .next-title em{color:var(--accent);font-style:italic;font-weight:400;}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:30px;border-top:1px solid rgba(255,255,255,0.15);font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--paper-muted);}
+  .footer-mark{color:var(--paper);}
+
+  @media (max-width:760px){
+    .meta-grid{grid-template-columns:repeat(2,1fr);}
+    .overview-grid, .exhibit-grid, .support-grid, .takeaway-grid{grid-template-columns:1fr;}
+  }
+
+  /* AUDIO GUIDE WIDGET */
+  .audio-guide{
+    position:fixed;
+    bottom:clamp(14px,3vw,24px);right:clamp(14px,3vw,24px);
+    z-index:200;
+    font-family:'Inter',sans-serif;
+    max-width:calc(100vw - 28px);
+  }
+  .ag-toggle{
+    display:flex;align-items:center;gap:9px;
+    background:var(--ink);color:var(--paper);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:clamp(10px,2vw,12px) clamp(13px,3vw,16px);border-radius:999px;
+    cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    font-family:'IBM Plex Mono',monospace;font-size:clamp(0.66rem,1.6vw,0.72rem);letter-spacing:0.08em;text-transform:uppercase;
+    transition:transform .2s ease, box-shadow .2s ease;
+    white-space:nowrap;
+  }
+  .ag-toggle:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.3);}
+  .ag-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;
+    animation:agpulse 1.6s ease-in-out infinite;}
+  @keyframes agpulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+  .ag-toggle svg{flex:none;}
+
+  .ag-panel{
+    position:absolute;bottom:calc(100% + 12px);right:0;
+    width:clamp(240px,80vw,320px);
+    max-width:calc(100vw - 28px);
+    background:var(--paper);
+    border:1px solid var(--ink);
+    box-shadow:0 16px 40px rgba(0,0,0,0.22);
+    padding:clamp(12px,3vw,16px);
+    display:none;
+    opacity:0;transform:translateY(8px);
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .audio-guide.open .ag-panel{display:block;}
+  .audio-guide.open .ag-panel.show{opacity:1;transform:translateY(0);}
+
+  .ag-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:9px;gap:12px;}
+  .ag-close{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);background:none;border:none;padding:0;line-height:1;flex:none;}
+  .ag-close:hover{color:var(--ink);}
+
+  .ag-tabs{display:flex;gap:14px;flex-wrap:wrap;}
+  .ag-tab{
+    font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.05em;text-transform:uppercase;
+    color:var(--muted);background:none;border:none;cursor:pointer;padding:0 0 3px 0;
+    border-bottom:1.5px solid transparent;
+  }
+  .ag-tab.active{color:var(--ink);border-bottom-color:var(--accent);}
+
+  .ag-frame-wrap{border-radius:8px;overflow:hidden;background:var(--paper-card);min-height:152px;}
+  .ag-frame-wrap iframe{display:block;width:100%;height:152px;border:none;}
+
+  .ag-footer{margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:0.64rem;color:var(--muted);text-align:right;}
+  .ag-footer a{color:var(--muted);}
+  .ag-footer a:hover{color:var(--accent);}  /* SIDE SECTION NAV */
+  .toc{
+    position:fixed;left:28px;top:50%;transform:translateY(-50%);
+    z-index:150;
+    display:flex;flex-direction:column;gap:13px;
+    width:172px;
+  }
+  .toc-item{
+    display:flex;align-items:center;justify-content:flex-start;gap:9px;
+    font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.01em;
+    color:var(--paper-muted);
+    text-align:left;
+    transition:color .2s ease;
+  }
+  .toc-item:hover{color:var(--muted);}
+  .toc-dot{
+    width:6px;height:6px;border-radius:50%;flex:none;
+    background:transparent;border:1.3px solid var(--paper-muted);
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .toc-item.active{color:var(--ink);font-weight:600;}
+  .toc-item.active .toc-dot{background:var(--accent);border-color:var(--accent);}
+  .toc-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left;}
+
+  @media (max-width:1300px){
+    .toc{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" aria-label="Back to homepage"><svg class="navmark" width="26" height="30" viewBox="0 0 44 50" fill="none">
+    <circle cx="13" cy="11" r="3.6" fill="currentColor"/>
+    <circle cx="30" cy="11" r="3.6" fill="currentColor"/>
+    <path d="M30 21 V35 C30 43 21 45.5 13.5 40" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" fill="none"/>
+  </svg></a>
+  <div class="navlinks">
+    <a href="index.html#work">Work</a>
+    <a href="about.html">About</a>
+    <!-- Résumé link: points to the résumé on Google Drive. -->
+    <a href="https://drive.google.com/file/d/1j6kaJTfAUeaCM25LnBCSx-hFJtdSB7Q1/view?usp=sharing" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</nav>
+
+<section class="placard">
+  <div class="wrap">
+    <div class="placard-eyebrow">Case Study — Catalog No. 03</div>
+    <h1 class="placard-title">Node <em>Foundation</em></h1>
+    <p class="placard-sub">Supporting visitor experience and exhibition operations at a gallery for digital and on-chain art.</p>
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="meta-label">Client</div><div class="meta-value">Node Foundation</div></div>
+      <div class="meta-cell"><div class="meta-label">Role</div><div class="meta-value">Guest Experience Associate</div></div>
+      <div class="meta-cell"><div class="meta-label">Timeline</div><div class="meta-value">Jun 2026 – Present</div></div>
+      <div class="meta-cell"><div class="meta-label">Focus</div><div class="meta-value">Visitor Engagement</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="hero-image">
+  <img class="ph-img" src="node/hero.jpg" alt="Node Foundation gallery" style="object-position:center 20%;" onerror="this.style.display='none'">
+</div>
+
+<section class="overview" id="sec-overview">
+  <div class="wrap overview-grid">
+    <div class="overview-label">Project Overview</div>
+    <div class="overview-text">Node Foundation is a gallery dedicated to digital and on-chain art. As a Guest Experience Associate, I help visitors, many encountering this kind of art for the first time, actually understand and connect with what they're looking at.</div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-01">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">01</span><span class="process-title">Guest Experience</span></div>
+    <div class="subcard">
+      <div class="subcard-title">Role at a Glance</div>
+      <ul class="role-list">
+        <li><span class="role-num">01</span><span class="role-text">Serve as the <b>primary point of contact</b> for guests navigating new exhibitions.</span></li>
+        <li><span class="role-num">02</span><span class="role-text">Explain artworks and help visitors engage with <b>digital and on-chain art</b>, often a genuinely new format for them.</span></li>
+        <li><span class="role-num">03</span><span class="role-text">Support day-to-day gallery operations, including <b>setup, guest assistance, and front desk coverage</b>.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-02">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">02</span><span class="process-title">Exhibition Support</span></div>
+    <div class="overview-text" style="font-size:1.05rem;margin-bottom:32px;color:var(--muted);font-family:'Inter',sans-serif;">Beyond hosting, I supported the installation process for two exhibitions during my time at Node.</div>
+    <div class="exhibit-grid">
+      <div class="exhibit-card">
+        <div class="exhibit-image"><img class="ph-img" src="node/exhibit-pxl.jpg" alt="PXL by Kim Asendorf" style="object-position:left center;" onerror="this.style.display='none'"></div>
+        <div class="exhibit-body">
+          <div class="exhibit-tag">Exhibition 01</div>
+          <div class="exhibit-name">PXL — Kim Assendorf</div>
+          <div class="exhibit-desc">Helped with installation setup and was on the floor to guide guests through the piece once it opened to the public.</div>
+        </div>
+      </div>
+      <div class="exhibit-card">
+        <div class="exhibit-image"><img class="ph-img" src="node/exhibit-makeout.png" alt="Make Out by Maya Man and Luke Shannon" onerror="this.style.display='none'"></div>
+        <div class="exhibit-body">
+          <div class="exhibit-tag">Exhibition 02</div>
+          <div class="exhibit-name">Make Out — Maya Man &amp; Luke Shannon</div>
+          <div class="exhibit-desc">Supported installation logistics and served as a guide for visitors experiencing the piece for the first time.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-03">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">03</span><span class="process-title">Marketing Support</span></div>
+    <div class="support-grid">
+      <div class="support-item">
+        <div class="support-title">Exhibit Promotion</div>
+        <div class="support-desc">Assisted the team with marketing efforts around each exhibition opening.</div>
+      </div>
+      <div class="support-item">
+        <div class="support-title">On-the-Ground Content</div>
+        <div class="support-desc">Helped capture moments from the gallery floor to support Node's social presence.</div>
+      </div>
+      <div class="support-item">
+        <div class="support-title">Guest Feedback Loop</div>
+        <div class="support-desc">Passed along recurring visitor questions and reactions back to the team.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" style="border-bottom:none;" id="sec-04">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">04</span><span class="process-title">Takeaways</span></div>
+    <div class="takeaway-grid">
+      <div class="takeaway-col">
+        <div class="tk-title">Translating New Art Forms</div>
+        <div class="tk-desc">A lot of guests walk in without much context for digital or on-chain art. Learning how to explain it clearly, without over-explaining, pulled directly from the same instincts I use as a Peer Advisor and TA: meeting someone where they are.</div>
+      </div>
+      <div class="takeaway-col">
+        <div class="tk-title">Seeing the Full Exhibition Lifecycle</div>
+        <div class="tk-desc">Being on the install side and the guest-facing side of the same exhibitions gave me a much better sense of everything that happens between an artist's concept and a visitor's first reaction to it.</div>
+      </div>
+      <div class="takeaway-col">
+        <div class="tk-title">Designing for Learning &amp; Connection</div>
+        <div class="tk-desc">Guest experience turned out to be spatial design as much as it was hosting. How a room is laid out (sightlines, lighting, where I stood relative to a piece) shaped whether someone felt comfortable getting curious or just walked past.</div>
+      </div>
+      <div class="takeaway-col">
+        <div class="tk-title">Making It Enjoyable, Not Just Educational</div>
+        <div class="tk-desc">Digital and on-chain art can feel intimidating on paper. Part of the job was translating that seriousness into something people could actually enjoy: pacing conversations and keeping explanations light so a visit felt digestible, not like a lecture.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="next-label">Next in the Catalog</div>
+    <a href="captured-moments.html"><div class="next-title">Captured <em>Moments</em> →</div></a>
+    <div class="footer-bottom">
+      <svg class="footer-mark" width="32" height="36" viewBox="0 0 44 50" fill="none">
+        <circle cx="13" cy="11" r="3.6" fill="currentColor"/>
+        <circle cx="30" cy="11" r="3.6" fill="currentColor"/>
+        <path d="M30 21 V35 C30 43 21 45.5 13.5 40" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span>© 2026 Josh Buenviaje</span>
+    </div>
+  </div>
+</footer>
+
+
+<nav class="toc" id="toc">
+  <a href="#sec-overview" class="toc-item" data-target="sec-overview"><span class="toc-dot"></span><span class="toc-label">Overview</span></a>
+  <a href="#sec-01" class="toc-item" data-target="sec-01"><span class="toc-dot"></span><span class="toc-label">01 — Guest Experience</span></a>
+  <a href="#sec-02" class="toc-item" data-target="sec-02"><span class="toc-dot"></span><span class="toc-label">02 — Exhibition Support</span></a>
+  <a href="#sec-03" class="toc-item" data-target="sec-03"><span class="toc-dot"></span><span class="toc-label">03 — Marketing Support</span></a>
+  <a href="#sec-04" class="toc-item" data-target="sec-04"><span class="toc-dot"></span><span class="toc-label">04 — Takeaways</span></a>
+</nav>
+
+<div class="audio-guide" id="audioGuide">
+  <div class="ag-panel" id="agPanel">
+    <div class="ag-head">
+      <div class="ag-tabs" id="agTabs">
+        <button class="ag-tab active" data-uri="spotify:playlist:53VFJnUIcrfUlIhhLTmUji">Josh's Top 10</button>
+        <button class="ag-tab" data-uri="spotify:playlist:1d93rfrg8ZQheUn2gqzK49">Browsing</button>
+      </div>
+      <button class="ag-close" id="agClose" aria-label="Close">✕</button>
+    </div>
+    <div class="ag-frame-wrap">
+      <div id="agFrame"></div>
+    </div>
+    <div class="ag-footer">Curated on <a href="#" target="_blank" rel="noopener">Spotify</a></div>
+  </div>
+  <div class="ag-toggle" id="agToggle">
+    <span class="ag-dot"></span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 15V9a8 8 0 0116 0v6M4 15a2 2 0 002 2h1a1 1 0 001-1v-4a1 1 0 00-1-1H5a1 1 0 00-1 1v3zM20 15a2 2 0 01-2 2h-1a1 1 0 01-1-1v-4a1 1 0 011-1h1a1 1 0 011 1v3z" stroke="currentColor" stroke-width="1.6"/></svg>
+    Listen to a Tune
+  </div>
+</div>
+
+<script>
+  // Audio guide widget — persists playback across page navigation via
+  // Spotify's iFrame Embed API + localStorage. Each page mounts a fresh
+  // controller on load; if a previous page had music going, we pick the
+  // same playlist + position back up. (Browsers can still block autoplay
+  // without a fresh click, so occasionally a tap on play is needed.)
+  const agWidget = document.getElementById('audioGuide');
+  const agToggle = document.getElementById('agToggle');
+  const agClose = document.getElementById('agClose');
+  const agPanel = document.getElementById('agPanel');
+  const agFrameEl = document.getElementById('agFrame');
+  const agTabs = document.querySelectorAll('.ag-tab');
+  const AG_STATE_KEY = 'jb_portfolio_audio_state';
+  let agController = null;
+  let agSaveTimer = null;
+
+  function readAgState(){
+    try { const raw = localStorage.getItem(AG_STATE_KEY); return raw ? JSON.parse(raw) : null; }
+    catch (e) { return null; }
+  }
+  function writeAgState(partial){
+    try {
+      const current = readAgState() || {};
+      localStorage.setItem(AG_STATE_KEY, JSON.stringify(Object.assign(current, partial)));
+    } catch (e) { /* localStorage unavailable — playback just won't persist */ }
+  }
+  function setActiveTabByUri(uri){
+    agTabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-uri') === uri));
+  }
+
+  function mountController(uri, resumeSeconds, autoplay){
+    if (!window.SpotifyIframeApi) return;
+    window.SpotifyIframeApi.createController(agFrameEl, { uri: uri }, (controller) => {
+      agController = controller;
+      controller.addListener('playback_update', (e) => {
+        const d = e.data || {};
+        clearTimeout(agSaveTimer);
+        agSaveTimer = setTimeout(() => {
+          writeAgState({ uri: uri, position: d.position || 0, paused: !!d.isPaused, savedAt: Date.now() });
+        }, 250);
+      });
+      controller.addListener('ready', () => {
+        if (resumeSeconds) controller.seek(resumeSeconds);
+        if (autoplay) controller.play();
+      });
+    });
+  }
+
+  function loadTab(tab, resumeSeconds, autoplay){
+    const uri = tab.getAttribute('data-uri');
+    setActiveTabByUri(uri);
+    writeAgState({ uri: uri, position: resumeSeconds || 0, paused: autoplay === false });
+    if (agController) {
+      agController.loadUri(uri);
+      if (autoplay !== false) agController.play();
+    } else {
+      mountController(uri, resumeSeconds, autoplay !== false);
+    }
+  }
+
+  window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    window.SpotifyIframeApi = IFrameAPI;
+    const saved = readAgState();
+    if (saved && saved.uri) {
+      setActiveTabByUri(saved.uri);
+      mountController(saved.uri, saved.position, !saved.paused);
+      if (saved.open) {
+        agWidget.classList.add('open');
+        requestAnimationFrame(() => agPanel.classList.add('show'));
+      }
+    }
+  };
+
+  agToggle.addEventListener('click', () => {
+    const opening = !agWidget.classList.contains('open');
+    agWidget.classList.toggle('open');
+    writeAgState({ open: opening });
+    if (opening && !agController) {
+      loadTab(agTabs[0], 0, true);
+    }
+    if (opening) {
+      requestAnimationFrame(() => agPanel.classList.add('show'));
+    } else {
+      agPanel.classList.remove('show');
+    }
+  });
+
+  agClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    agWidget.classList.remove('open');
+    agPanel.classList.remove('show');
+    writeAgState({ open: false });
+  });
+
+  agTabs.forEach(tab => tab.addEventListener('click', () => loadTab(tab, 0, true)));
+
+  // Side section nav (scrollspy)
+  const tocItems = document.querySelectorAll('.toc-item');
+  const tocSections = Array.from(tocItems).map(item =>
+    document.getElementById(item.getAttribute('data-target'))
+  ).filter(Boolean);
+
+  const tocObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const item = document.querySelector(`.toc-item[data-target="${entry.target.id}"]`);
+      if (!item) return;
+      if (entry.isIntersecting) {
+        tocItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+  tocSections.forEach(sec => tocObserver.observe(sec));
+
+</script>
+
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+</body>
+</html>

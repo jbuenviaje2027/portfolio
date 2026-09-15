@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serendipi-Tea — Case Study — Josh Buenviaje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14140F;
+    --paper:#F6F4EC;
+    --paper-card:#ECE8DC;
+    --line:#D6D1C2;
+    --accent:#178A52;
+    --accent-dim:#D8F2E3;
+    --stamp:#D6402C;
+    --muted:#6E6A5D;
+    --paper-muted:#B9B5A6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .display{font-family:'Bricolage Grotesque',sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 32px;
+    background:rgba(246,244,236,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .navmark{color:var(--ink);display:block;}
+  .navlinks{display:flex;gap:36px;}
+  .navlinks a{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--muted);position:relative;padding-bottom:4px;
+  }
+  .navlinks a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .25s ease;}
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a:hover{color:var(--ink);}
+
+  /* Easy-to-swap placeholder images: replace the file at the src path, or
+     edit the src attribute directly. If a file is missing, onerror hides the
+     broken image and the colored background behind it shows through instead. */
+  .ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* PLACARD HEADER */
+  .placard{padding:150px 0 60px;border-bottom:1px solid var(--line);}
+  .placard-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+  .placard-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(2.6rem,7vw,4.6rem);line-height:1;margin-bottom:20px;}
+  .placard-title em{font-style:italic;font-weight:400;color:var(--accent);}
+  .placard-sub{font-size:1.15rem;color:var(--muted);max-width:640px;line-height:1.5;margin-bottom:48px;}
+  .meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);}
+  .meta-cell{padding:22px 24px;border-right:1px solid var(--line);}
+  .meta-cell:first-child{padding-left:0;}
+  .meta-cell:last-child{border-right:none;padding-right:0;}
+  .meta-label{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:8px;}
+  .meta-value{font-size:0.95rem;font-weight:500;}
+
+  /* HERO IMAGE */
+  .hero-image{aspect-ratio:4/3;height:560px;width:auto;margin:0 auto;max-width:100%;background:linear-gradient(135deg,#178A52,#0B3A24);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:28px;}
+  .hero-image span{font-family:'IBM Plex Mono',monospace;color:rgba(255,255,255,0.7);font-size:0.72rem;position:relative;z-index:1;}
+
+  /* OVERVIEW */
+  .overview{padding:80px 0;border-bottom:1px solid var(--line);}
+  .overview-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;}
+  .overview-label{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+  .overview-text{font-family:'Bricolage Grotesque',sans-serif;font-size:1.5rem;line-height:1.4;font-weight:400;}
+  .overview-note{font-size:0.9rem;color:var(--muted);margin-top:18px;line-height:1.5;}
+
+  /* PULL QUOTE (THE CHALLENGE) */
+  .challenge{background:var(--ink);color:var(--paper);padding:110px 0;}
+  .challenge-label{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:28px;}
+  .challenge-text{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(1.8rem,4vw,3rem);line-height:1.2;max-width:900px;}
+  .challenge-text .accent{color:var(--accent);font-style:italic;font-weight:400;}
+
+  /* PROCESS SECTIONS */
+  .process-section{padding:100px 0;border-bottom:1px solid var(--line);}
+  .process-head{display:flex;gap:24px;align-items:baseline;margin-bottom:48px;}
+  .process-num{font-family:'IBM Plex Mono',monospace;font-size:1rem;color:var(--accent);}
+  .process-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:2.1rem;}
+
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:48px;}
+  .stat-cell{background:var(--paper);padding:32px 26px;}
+  .stat-num{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:3rem;color:var(--accent);}
+  .stat-label{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-top:8px;}
+
+  .takeaway-box{border:1px solid var(--ink);padding:24px 28px;display:inline-block;font-family:'Bricolage Grotesque',sans-serif;font-style:italic;font-size:1.15rem;}
+
+  .persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .persona-card{background:var(--paper);padding:30px 26px;}
+  .persona-tag{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .persona-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:1.3rem;margin-bottom:14px;}
+  .persona-desc{font-size:0.9rem;color:var(--muted);line-height:1.5;}
+
+  .user-group-card{background:var(--accent-dim);border:1px solid var(--accent);padding:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+  .ug-label{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+  .ug-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:1.9rem;}
+  .ug-desc{max-width:460px;font-size:0.95rem;color:var(--muted);line-height:1.5;}
+  .ug-hmw{margin-top:14px;font-size:0.88rem;font-style:italic;color:var(--muted);}
+
+  /* NEXT PROJECT FOOTER */
+  footer{background:var(--ink);color:var(--paper);padding:90px 0 40px;}
+  .next-label{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:20px;}
+  .next-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(2rem,6vw,3.4rem);margin-bottom:48px;}
+  .next-title em{color:var(--accent);font-style:italic;font-weight:400;}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:30px;border-top:1px solid rgba(255,255,255,0.15);font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--paper-muted);}
+  .footer-mark{color:var(--paper);}
+
+  /* POV STATEMENT */
+  .pov-card{background:var(--ink);color:var(--paper);border:1px solid rgba(255,255,255,0.1);padding:36px;display:flex;gap:24px;align-items:center;margin-top:40px;}
+  .pov-avatar{width:56px;height:56px;border-radius:50%;flex:none;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;color:var(--ink);font-size:0.7rem;}
+  .pov-label{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:10px;}
+  .pov-text{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:1.25rem;line-height:1.4;}
+  .pov-text b{color:var(--accent);}
+
+  /* CARD BLOCKS (cream sub-cards inside a section) */
+  .subcard{background:var(--paper-card);border:1px solid var(--line);padding:40px;margin-top:40px;}
+  .subcard-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:28px;text-transform:uppercase;letter-spacing:-0.01em;}
+
+  /* PROBLEM FRAMING */
+  .framing-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;margin-bottom:28px;}
+  .framing-side{font-size:0.92rem;line-height:1.55;color:var(--muted);}
+  .framing-side b{color:var(--ink);}
+  .vs-badge{width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;}
+
+  /* INSIGHTS */
+  .insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.12);}
+  .insight-item{background:var(--ink);padding:26px;}
+  .insight-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.05rem;color:var(--accent-dim);margin-bottom:8px;}
+  .insight-desc{font-size:0.88rem;color:#B9B5A6;line-height:1.5;}
+
+  /* PROTOTYPES */
+  .proto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px;}
+  .proto-card{background:var(--paper);}
+  .proto-image{height:150px;background:linear-gradient(135deg,#8C8875,#3D3B31);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .proto-image span{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:rgba(255,255,255,0.7);position:relative;z-index:1;}
+  .proto-body{padding:18px 20px 22px;}
+  .proto-num{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--accent);margin-bottom:6px;}
+  .proto-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:8px;}
+  .proto-desc{font-size:0.85rem;color:var(--muted);line-height:1.5;}
+
+  /* CARD LEVELS */
+  .cards-split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+  .cards-text p{font-size:0.95rem;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+  .card-link{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;letter-spacing:0.05em;text-transform:uppercase;
+    color:var(--ink);border-bottom:1.5px solid var(--ink);padding-bottom:3px;
+  }
+  .card-link:hover{color:var(--accent);border-color:var(--accent);}
+  .level-table{border:1px solid var(--line);background:var(--paper);}
+  .level-row{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);}
+  .level-row:last-child{border-bottom:none;}
+  .level-name{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;display:flex;align-items:center;gap:8px;}
+  .level-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+  .level-row:nth-child(1) .level-dot{background:var(--stamp);}
+  .level-row:nth-child(2) .level-dot{opacity:0.7;}
+  .level-row:nth-child(3) .level-dot{opacity:1;background:var(--accent);}
+  .level-example{font-size:0.8rem;color:var(--muted);text-align:right;max-width:220px;}
+
+  /* EXPERIENCE */
+  .exp-caption{font-size:0.88rem;color:var(--muted);line-height:1.5;max-width:640px;}
+  .flow-strip{display:flex;align-items:center;gap:10px;margin-bottom:24px;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted);flex-wrap:wrap;}
+  .flow-step{background:var(--paper);border:1px solid var(--line);padding:8px 14px;text-transform:uppercase;letter-spacing:0.04em;}
+  .flow-arrow{color:var(--accent);}
+
+  /* CLICK-THROUGH CAROUSEL (Creating the Experience / Design Result) —
+     same component as the Simone case study's trend-research carousel. */
+  .trend-carousel{display:flex;flex-direction:column;gap:12px;}
+  .tc-frame{position:relative;width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#8C8875,#3D3B31);overflow:hidden;border:1px solid var(--line);}
+  .tc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:0;transition:opacity .35s ease;pointer-events:none;}
+  .tc-img.contain{object-fit:contain;object-position:center;}
+  .tc-img.active{opacity:1;pointer-events:auto;}
+  .tc-tag{position:absolute;top:10px;left:10px;background:var(--ink);color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;padding:4px 8px;z-index:2;}
+  .tc-controls{display:flex;align-items:center;justify-content:space-between;}
+  .tc-btn{width:36px;height:36px;flex:none;border:1px solid var(--ink);background:transparent;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s,color .18s;}
+  .tc-btn:hover{background:var(--ink);color:var(--paper);}
+  .tc-counter{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;letter-spacing:0.08em;color:var(--muted);}
+  .tc-counter .tc-current{color:var(--ink);font-weight:600;}
+
+  /* FINAL SOLUTION FEATURES */
+  .feature-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;}
+  .feature-chip{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.05em;border:1px solid var(--ink);padding:10px 16px;text-transform:uppercase;}
+
+  /* VIDEO BLOCK */
+  .video-block{padding:80px 0;background:var(--ink);display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;overflow:hidden;}
+  .video-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:24px;position:relative;}
+  .video-frame-wrap{
+    position:relative;width:100%;max-width:860px;margin:0 32px;
+    aspect-ratio:16/9;
+    background:#000;
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  }
+  .video-frame-wrap iframe, .video-frame-wrap video{position:absolute;inset:0;width:100%;height:100%;border:none;object-fit:contain;background:#000;}
+
+  /* RESULT STATS */
+  .result-line{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);font-size:0.92rem;}
+  .result-line:last-child{border-bottom:none;}
+  .result-line b{font-weight:600;}
+  .result-line span{color:var(--muted);}
+
+  /* TAKEAWAYS */
+  .takeaway-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.12);margin-top:12px;}
+  .takeaway-col{background:var(--ink);padding:28px 24px;}
+  .tk-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.05rem;color:var(--paper);margin-bottom:12px;text-transform:uppercase;}
+  .tk-desc{font-size:0.87rem;color:#B9B5A6;line-height:1.6;}
+
+  @media (max-width:760px){
+    .meta-grid{grid-template-columns:repeat(2,1fr);}
+    .overview-grid{grid-template-columns:1fr;}
+    .stat-row, .persona-grid, .insight-grid, .proto-grid, .cards-split, .takeaway-grid{grid-template-columns:1fr;}
+    .framing-grid{grid-template-columns:1fr;}
+  }
+
+  /* AUDIO GUIDE WIDGET */
+  .audio-guide{
+    position:fixed;
+    bottom:clamp(14px,3vw,24px);right:clamp(14px,3vw,24px);
+    z-index:200;
+    font-family:'Inter',sans-serif;
+    max-width:calc(100vw - 28px);
+  }
+  .ag-toggle{
+    display:flex;align-items:center;gap:9px;
+    background:var(--ink);color:var(--paper);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:clamp(10px,2vw,12px) clamp(13px,3vw,16px);border-radius:999px;
+    cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    font-family:'IBM Plex Mono',monospace;font-size:clamp(0.66rem,1.6vw,0.72rem);letter-spacing:0.08em;text-transform:uppercase;
+    transition:transform .2s ease, box-shadow .2s ease;
+    white-space:nowrap;
+  }
+  .ag-toggle:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.3);}
+  .ag-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;
+    animation:agpulse 1.6s ease-in-out infinite;}
+  @keyframes agpulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+  .ag-toggle svg{flex:none;}
+
+  .ag-panel{
+    position:absolute;bottom:calc(100% + 12px);right:0;
+    width:clamp(240px,80vw,320px);
+    max-width:calc(100vw - 28px);
+    background:var(--paper);
+    border:1px solid var(--ink);
+    box-shadow:0 16px 40px rgba(0,0,0,0.22);
+    padding:clamp(12px,3vw,16px);
+    display:none;
+    opacity:0;transform:translateY(8px);
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .audio-guide.open .ag-panel{display:block;}
+  .audio-guide.open .ag-panel.show{opacity:1;transform:translateY(0);}
+
+  .ag-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:9px;gap:12px;}
+  .ag-close{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);background:none;border:none;padding:0;line-height:1;flex:none;}
+  .ag-close:hover{color:var(--ink);}
+
+  .ag-tabs{display:flex;gap:14px;flex-wrap:wrap;}
+  .ag-tab{
+    font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.05em;text-transform:uppercase;
+    color:var(--muted);background:none;border:none;cursor:pointer;padding:0 0 3px 0;
+    border-bottom:1.5px solid transparent;
+  }
+  .ag-tab.active{color:var(--ink);border-bottom-color:var(--accent);}
+
+  .ag-frame-wrap{border-radius:8px;overflow:hidden;background:var(--paper-card);min-height:152px;}
+  .ag-frame-wrap iframe{display:block;width:100%;height:152px;border:none;}
+
+  .ag-footer{margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:0.64rem;color:var(--muted);text-align:right;}
+  .ag-footer a{color:var(--muted);}
+  .ag-footer a:hover{color:var(--accent);}  /* SIDE SECTION NAV */
+  .toc{
+    position:fixed;left:28px;top:50%;transform:translateY(-50%);
+    z-index:150;
+    display:flex;flex-direction:column;gap:13px;
+    width:172px;
+  }
+  .toc-item{
+    display:flex;align-items:center;justify-content:flex-start;gap:9px;
+    font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.01em;
+    color:var(--paper-muted);
+    text-align:left;
+    transition:color .2s ease;
+  }
+  .toc-item:hover{color:var(--muted);}
+  .toc-dot{
+    width:6px;height:6px;border-radius:50%;flex:none;
+    background:transparent;border:1.3px solid var(--paper-muted);
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .toc-item.active{color:var(--ink);font-weight:600;}
+  .toc-item.active .toc-dot{background:var(--accent);border-color:var(--accent);}
+  .toc-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left;}
+
+  @media (max-width:1300px){
+    .toc{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" aria-label="Back to homepage"><svg class="navmark" width="26" height="30" viewBox="0 0 44 50" fill="none">
+    <circle cx="13" cy="11" r="3.6" fill="currentColor"/>
+    <circle cx="30" cy="11" r="3.6" fill="currentColor"/>
+    <path d="M30 21 V35 C30 43 21 45.5 13.5 40" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" fill="none"/>
+  </svg></a>
+  <div class="navlinks">
+    <a href="index.html#work">Work</a>
+    <a href="about.html">About</a>
+    <!-- Résumé link: points to the résumé on Google Drive. -->
+    <a href="https://drive.google.com/file/d/1j6kaJTfAUeaCM25LnBCSx-hFJtdSB7Q1/view?usp=sharing" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</nav>
+
+<section class="placard">
+  <div class="wrap">
+    <div class="placard-eyebrow">Case Study — Catalog No. 01</div>
+    <h1 class="placard-title">Serendipi<em>-Tea</em></h1>
+    <p class="placard-sub">Designing an innovation hub experience to foster authentic connection among startup founders in accelerator spaces.</p>
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="meta-label">Client</div><div class="meta-value">StartX — Stanford</div></div>
+      <div class="meta-cell"><div class="meta-label">Role</div><div class="meta-value">Head User Researcher</div></div>
+      <div class="meta-cell"><div class="meta-label">Timeline</div><div class="meta-value">1 Quarter, 2025</div></div>
+      <div class="meta-cell"><div class="meta-label">Team</div><div class="meta-value">Team Jello (3 Designers)</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="hero-image">
+  <img class="ph-img" src="serendipi-tea/hero.jpg" alt="Serendipi-Tea final installation" onerror="this.style.display='none'">
+</div>
+
+<section class="overview" id="sec-overview">
+  <div class="wrap overview-grid">
+    <div class="overview-label">Project Overview</div>
+    <div>
+      <div class="overview-text">A card-based conversation tool built through a human-centered design process, prototyped and tested with founders across the StartX accelerator community.</div>
+      <div class="overview-note">Built with Team Jello (a team of 3) as part of Design 121 at Stanford's d.school, in partnership with StartX. I led the project as Head User Researcher.</div>
+    </div>
+  </div>
+</section>
+
+<section class="challenge" id="sec-challenge">
+  <div class="wrap">
+    <div class="challenge-label">The Challenge</div>
+    <div class="challenge-text">How might we use the human-centered design process to design <span class="accent">an innovation hub</span> for the next generation of startup founders at Stanford Research Park?</div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-01">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">01</span><span class="process-title">Needfinding</span></div>
+    <div class="stat-row">
+      <div class="stat-cell"><div class="stat-num">17</div><div class="stat-label">People Reached</div></div>
+      <div class="stat-cell"><div class="stat-num">6</div><div class="stat-label">Interviews Conducted</div></div>
+      <div class="stat-cell"><div class="stat-num">4</div><div class="stat-label">Founder Segments</div></div>
+    </div>
+    <div class="takeaway-box">Key takeaway: lots of diversity, in tenure, background, and what "connection" even means to a founder.</div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-02">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">02</span><span class="process-title">Synthesis</span></div>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-tag">Segment A</div>
+        <div class="persona-name">Seasoned Founders</div>
+        <div class="persona-desc">Keeps up with the latest tech trends and is always looking for ways to boost productivity, typically moving between spaces to work, talk, and present his newest slide deck.</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-tag">Segment B</div>
+        <div class="persona-name">Brand New Founders</div>
+        <div class="persona-desc">Wants more genuine talks with other founders beyond concise business chat and tool-sharing, but feels an invisible gap that keeps those conversations from happening.</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-tag">Segment C</div>
+        <div class="persona-name">Underrepresented Founders</div>
+        <div class="persona-desc">Feels like funding is her largest barrier to entry, largely due to how she's perceived as a minority founder, but remains resilient and channels that feeling to keep pushing.</div>
+      </div>
+    </div>
+
+    <div class="subcard" style="background:var(--ink);border-color:rgba(255,255,255,0.1);padding:0;margin-top:40px;">
+      <div class="user-group-card" style="border:none;">
+        <div>
+          <div class="ug-label">User Group — StartX</div>
+          <div class="ug-title">Brand New Founders</div>
+          <div class="ug-hmw">How might we promote serendipitous conversations between founders?</div>
+        </div>
+        <div class="ug-desc">New StartX founders who lack an environment conducive to organic, serendipitous connection with one another, making the average conversation feel transactional.</div>
+      </div>
+    </div>
+
+    <div class="pov-card">
+      <div class="pov-avatar">JB</div>
+      <div>
+        <div class="pov-label">POV Statement</div>
+        <div class="pov-text">New members of the StartX community <b>crave</b> an environment free of artificial, network-based connection, to ensure the relationships they form through StartX programming <b>have a lasting impact.</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-03">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">03</span><span class="process-title">Prototyping</span></div>
+
+    <div class="subcard">
+      <div class="subcard-title">Problem Framing</div>
+      <div class="framing-grid">
+        <div class="framing-side">In environments where every conversation feels like a <b>pitch</b>, genuine and authentic connection always feels like it's placed on the back burner.</div>
+        <div class="vs-badge">VS</div>
+        <div class="framing-side">StartX founders feel <b>naturally authentic</b> with each other, seamlessly connecting with other members of the community as if they were family.</div>
+      </div>
+      <div class="takeaway-box">TL;DR: we want founders to create deeper, lasting connections.</div>
+    </div>
+
+    <div class="subcard">
+      <div class="subcard-title">Three Prototypes</div>
+      <div class="flow-strip">
+        <span class="flow-step">Enter</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Look Around</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Snacks</span><span class="flow-arrow">→</span>
+        <span class="flow-step">We're All Humans Card Game</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Photo</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Exit</span>
+      </div>
+      <div class="proto-grid">
+        <div class="proto-card">
+          <div class="proto-image">
+            <img class="ph-img" src="serendipi-tea/prototype-quilt.jpg" alt="Founder Quilt prototype" onerror="this.style.display='none'">
+          </div>
+          <div class="proto-body">
+            <div class="proto-num">Prototype 01</div>
+            <div class="proto-name">Founder Quilt (X)</div>
+            <div class="proto-desc">Elevates underrepresented voices by displaying local founders.</div>
+          </div>
+        </div>
+        <div class="proto-card">
+          <div class="proto-image">
+            <img class="ph-img" src="serendipi-tea/prototype-humans.jpg" alt="We're All Humans prototype" onerror="this.style.display='none'">
+          </div>
+          <div class="proto-body">
+            <div class="proto-num">Prototype 02</div>
+            <div class="proto-name">We're All Humans</div>
+            <div class="proto-desc">Humanizes founders by creating space for personal discussion.</div>
+          </div>
+        </div>
+        <div class="proto-card">
+          <div class="proto-image">
+            <img class="ph-img" src="serendipi-tea/prototype-thirdspace.jpg" alt="Third Space prototype" onerror="this.style.display='none'">
+          </div>
+          <div class="proto-body">
+            <div class="proto-num">Prototype 03</div>
+            <div class="proto-name">Third Space</div>
+            <div class="proto-desc">Creates a cozy environment inside a typically busy startup ecosystem.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcard" style="background:var(--ink);border-color:rgba(255,255,255,0.1);">
+      <div class="subcard-title" style="color:var(--paper);">Insights</div>
+      <div class="insight-grid">
+        <div class="insight-item">
+          <div class="insight-title">Third Spaces Deepen Connection</div>
+          <div class="insight-desc">People were willing to interact with our prototype, typically in pre-existing groups.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-title">We Need a Wide Variety of Topics</div>
+          <div class="insight-desc">When the focus is on getting personal, people get deep.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-title">Smaller + Cozier = Intimacy</div>
+          <div class="insight-desc">Conversations feel deeper with smaller groups of people (2–3).</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-title">Food Is a Way to Invite People</div>
+          <div class="insight-desc">Food transitions to being less important than an intrinsic desire to connect.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcard">
+      <div class="subcard-title">Creating the Cards</div>
+      <div class="cards-split">
+        <div class="cards-text">
+          <p>Our cards were heavily inspired by the game <b>We're Not Really Strangers</b>, ranging from light reflection (Seed level) to deeper conversation (Bloom level), plus questions written directly from the experiences of startup founders.</p>
+          <p>Cards were designed in Figma, printed on cardstock, corner-cut for a rounded feel, then sprayed with lacquer for a refined finish. We also built a custom box with a "How to Play" card.</p>
+          <a href="https://www.figma.com/design/it91COfADt2hqakFp3oiHu/Serendipi-tea-Print-and-Play?node-id=2284-2&p=f" target="_blank" rel="noopener" class="card-link">View the card deck on Figma →</a>
+        </div>
+        <div class="level-table">
+          <div class="level-row"><span class="level-name"><span class="level-dot"></span>Seed</span><span class="level-example">"Who was your biggest role model growing up?"</span></div>
+          <div class="level-row"><span class="level-name"><span class="level-dot"></span>Sprout</span><span class="level-example">"Who was your childhood best friend?"</span></div>
+          <div class="level-row"><span class="level-name"><span class="level-dot"></span>Bloom</span><span class="level-example">"What's something you're grieving, even if it's not obvious loss?"</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcard">
+      <div class="subcard-title">Creating the Experience</div>
+      <div class="trend-carousel" id="expCarousel" style="max-width:480px;margin:0 auto;">
+        <div class="tc-frame">
+          <div class="tc-tag mono">The Experience</div>
+          <img class="tc-img active" src="serendipi-tea/experience-1.jpg" alt="Cards laid out on the table" onerror="this.style.display='none'">
+          <img class="tc-img" src="serendipi-tea/experience-2.jpg" alt="Founders playing the card game" onerror="this.style.display='none'">
+          <img class="tc-img" src="serendipi-tea/experience-3.jpg" alt="Founders playing the card game" onerror="this.style.display='none'">
+          <img class="tc-img" src="serendipi-tea/experience-4.jpg" alt="Digital camera photo from the experience" onerror="this.style.display='none'">
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn" data-carousel-prev aria-label="Previous slide">&larr;</button>
+          <span class="tc-counter"><span class="tc-current" data-carousel-current>01</span> / <span data-carousel-total>04</span></span>
+          <button class="tc-btn" data-carousel-next aria-label="Next slide">&rarr;</button>
+        </div>
+      </div>
+      <div class="exp-caption" style="margin-top:16px;">Cards were placed at a campus cafe space with signage, and left to let the experience run on its own. A digital camera was placed within the set-up so users could document their own experience.</div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" id="sec-04">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">04</span><span class="process-title">Final Solution @ StartX</span></div>
+    <div class="hero-image" style="aspect-ratio:4/3;">
+      <img class="ph-img" src="serendipi-tea/final-solution.jpg" alt="Final Serendipi-Tea installation at StartX" onerror="this.style.display='none'">
+    </div>
+    <div class="feature-row">
+      <div class="feature-chip">Connection Wall</div>
+      <div class="feature-chip">Food / Drinks</div>
+      <div class="feature-chip">We're All Humans Card Game</div>
+    </div>
+  </div>
+</section>
+
+<div class="video-block">
+  <div class="video-eyebrow">Final Solution — Watch the Recap</div>
+  <div class="video-frame-wrap">
+    <video controls preload="metadata" poster="serendipi-tea/final-solution.jpg">
+      <source src="videos/serendipi-tea-recap.mp4" type="video/mp4">
+      Your browser doesn't support embedded video. <a href="videos/serendipi-tea-recap.mp4">Download the recap here.</a>
+    </video>
+  </div>
+</div>
+
+<section class="process-section" id="sec-05">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">05</span><span class="process-title">Design Result</span></div>
+    <div class="trend-carousel" id="resultCarousel" style="max-width:420px;margin:0 auto 28px;">
+      <div class="tc-frame" style="aspect-ratio:3/2;">
+        <img class="tc-img contain active" src="serendipi-tea/result-1.jpg" alt="Founders in conversation at the Serendipi-Tea connection wall" onerror="this.style.display='none'">
+        <img class="tc-img contain" src="serendipi-tea/result-2.jpg" alt="Founders reacting during the game" onerror="this.style.display='none'">
+      </div>
+      <div class="tc-controls">
+        <button class="tc-btn" data-carousel-prev aria-label="Previous slide">&larr;</button>
+        <span class="tc-counter"><span class="tc-current" data-carousel-current>01</span> / <span data-carousel-total>02</span></span>
+        <button class="tc-btn" data-carousel-next aria-label="Next slide">&rarr;</button>
+      </div>
+    </div>
+    <div class="result-line"><b>Variety of Conversation</b><span>Love, death, politics, insecurities, etc.</span></div>
+    <div class="result-line"><b>Variety of Strong Emotion</b><span>Laughter, reflection, surprise</span></div>
+    <div class="result-line"><b>Shortest Playtime</b><span>35 min</span></div>
+    <div class="result-line"><b>Longest Playtime</b><span>45 min</span></div>
+
+    <div class="subcard" style="margin-top:36px;">
+      <p style="font-size:0.98rem;color:var(--muted);line-height:1.65;">One of the more surprising outcomes was how quickly the founders' guards came down. Most of them spend their days pitching, networking, and performing a version of themselves built for a room full of investors or competitors. But once there was a vessel built strictly for connection, with no ask, no agenda, and nothing to prove, that professional mask seemed to just fall away. Conversations that started as polite small talk kept sliding into something more honest: grief, doubt, the parts of running a company nobody really talks about. It made the case that founders don't necessarily need more networking spaces. They need spaces that are explicitly not that.</p>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" style="border-bottom:none;" id="sec-06">
+  <div class="wrap">
+    <div class="process-head"><span class="process-num">06</span><span class="process-title">Takeaways</span></div>
+    <div class="takeaway-grid">
+      <div class="takeaway-col">
+        <div class="tk-title">Rooting My Work in User Needs</div>
+        <div class="tk-desc">My group and I were unfamiliar with the experience of startup founders. This project stemmed directly from the conversations we had with them, and the pain points we noticed.</div>
+      </div>
+      <div class="takeaway-col">
+        <div class="tk-title">Designing for Emotional Impact</div>
+        <div class="tk-desc">This project taught me that meaningful design goes beyond solving logistical problems. It can create space for vulnerability, connection, and authentic human interaction.</div>
+      </div>
+      <div class="takeaway-col">
+        <div class="tk-title">Conversation as a Designed Experience</div>
+        <div class="tk-desc">This project reframed dialogue itself as something that can be intentionally crafted through prompts, pacing, environment, and material interaction.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="next-label">Next in the Catalog</div>
+    <a href="case-study-simone.html"><div class="next-title">Simone Acc. <em>Collection</em> →</div></a>
+    <div class="footer-bottom">
+      <svg class="footer-mark" width="32" height="36" viewBox="0 0 44 50" fill="none">
+        <circle cx="13" cy="11" r="3.6" fill="currentColor"/>
+        <circle cx="30" cy="11" r="3.6" fill="currentColor"/>
+        <path d="M30 21 V35 C30 43 21 45.5 13.5 40" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span>© 2026 Josh Buenviaje</span>
+    </div>
+  </div>
+</footer>
+
+
+<nav class="toc" id="toc">
+  <a href="#sec-overview" class="toc-item" data-target="sec-overview"><span class="toc-dot"></span><span class="toc-label">Overview</span></a>
+  <a href="#sec-challenge" class="toc-item" data-target="sec-challenge"><span class="toc-dot"></span><span class="toc-label">The Challenge</span></a>
+  <a href="#sec-01" class="toc-item" data-target="sec-01"><span class="toc-dot"></span><span class="toc-label">01 — Needfinding</span></a>
+  <a href="#sec-02" class="toc-item" data-target="sec-02"><span class="toc-dot"></span><span class="toc-label">02 — Synthesis</span></a>
+  <a href="#sec-03" class="toc-item" data-target="sec-03"><span class="toc-dot"></span><span class="toc-label">03 — Prototyping</span></a>
+  <a href="#sec-04" class="toc-item" data-target="sec-04"><span class="toc-dot"></span><span class="toc-label">04 — Final Solution</span></a>
+  <a href="#sec-05" class="toc-item" data-target="sec-05"><span class="toc-dot"></span><span class="toc-label">05 — Design Result</span></a>
+  <a href="#sec-06" class="toc-item" data-target="sec-06"><span class="toc-dot"></span><span class="toc-label">06 — Takeaways</span></a>
+</nav>
+
+<div class="audio-guide" id="audioGuide">
+  <div class="ag-panel" id="agPanel">
+    <div class="ag-head">
+      <div class="ag-tabs" id="agTabs">
+        <button class="ag-tab active" data-uri="spotify:playlist:53VFJnUIcrfUlIhhLTmUji">Josh's Top 10</button>
+        <button class="ag-tab" data-uri="spotify:playlist:1d93rfrg8ZQheUn2gqzK49">Browsing</button>
+      </div>
+      <button class="ag-close" id="agClose" aria-label="Close">✕</button>
+    </div>
+    <div class="ag-frame-wrap">
+      <div id="agFrame"></div>
+    </div>
+    <div class="ag-footer">Curated on <a href="#" target="_blank" rel="noopener">Spotify</a></div>
+  </div>
+  <div class="ag-toggle" id="agToggle">
+    <span class="ag-dot"></span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 15V9a8 8 0 0116 0v6M4 15a2 2 0 002 2h1a1 1 0 001-1v-4a1 1 0 00-1-1H5a1 1 0 00-1 1v3zM20 15a2 2 0 01-2 2h-1a1 1 0 01-1-1v-4a1 1 0 011-1h1a1 1 0 011 1v3z" stroke="currentColor" stroke-width="1.6"/></svg>
+    Listen to a Tune
+  </div>
+</div>
+
+<script>
+  // Audio guide widget — persists playback across page navigation via
+  // Spotify's iFrame Embed API + localStorage. Each page mounts a fresh
+  // controller on load; if a previous page had music going, we pick the
+  // same playlist + position back up. (Browsers can still block autoplay
+  // without a fresh click, so occasionally a tap on play is needed.)
+  const agWidget = document.getElementById('audioGuide');
+  const agToggle = document.getElementById('agToggle');
+  const agClose = document.getElementById('agClose');
+  const agPanel = document.getElementById('agPanel');
+  const agFrameEl = document.getElementById('agFrame');
+  const agTabs = document.querySelectorAll('.ag-tab');
+  const AG_STATE_KEY = 'jb_portfolio_audio_state';
+  let agController = null;
+  let agSaveTimer = null;
+
+  function readAgState(){
+    try { const raw = localStorage.getItem(AG_STATE_KEY); return raw ? JSON.parse(raw) : null; }
+    catch (e) { return null; }
+  }
+  function writeAgState(partial){
+    try {
+      const current = readAgState() || {};
+      localStorage.setItem(AG_STATE_KEY, JSON.stringify(Object.assign(current, partial)));
+    } catch (e) { /* localStorage unavailable — playback just won't persist */ }
+  }
+  function setActiveTabByUri(uri){
+    agTabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-uri') === uri));
+  }
+
+  function mountController(uri, resumeSeconds, autoplay){
+    if (!window.SpotifyIframeApi) return;
+    window.SpotifyIframeApi.createController(agFrameEl, { uri: uri }, (controller) => {
+      agController = controller;
+      controller.addListener('playback_update', (e) => {
+        const d = e.data || {};
+        clearTimeout(agSaveTimer);
+        agSaveTimer = setTimeout(() => {
+          writeAgState({ uri: uri, position: d.position || 0, paused: !!d.isPaused, savedAt: Date.now() });
+        }, 250);
+      });
+      controller.addListener('ready', () => {
+        if (resumeSeconds) controller.seek(resumeSeconds);
+        if (autoplay) controller.play();
+      });
+    });
+  }
+
+  function loadTab(tab, resumeSeconds, autoplay){
+    const uri = tab.getAttribute('data-uri');
+    setActiveTabByUri(uri);
+    writeAgState({ uri: uri, position: resumeSeconds || 0, paused: autoplay === false });
+    if (agController) {
+      agController.loadUri(uri);
+      if (autoplay !== false) agController.play();
+    } else {
+      mountController(uri, resumeSeconds, autoplay !== false);
+    }
+  }
+
+  window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    window.SpotifyIframeApi = IFrameAPI;
+    const saved = readAgState();
+    if (saved && saved.uri) {
+      setActiveTabByUri(saved.uri);
+      mountController(saved.uri, saved.position, !saved.paused);
+      if (saved.open) {
+        agWidget.classList.add('open');
+        requestAnimationFrame(() => agPanel.classList.add('show'));
+      }
+    }
+  };
+
+  agToggle.addEventListener('click', () => {
+    const opening = !agWidget.classList.contains('open');
+    agWidget.classList.toggle('open');
+    writeAgState({ open: opening });
+    if (opening && !agController) {
+      loadTab(agTabs[0], 0, true);
+    }
+    if (opening) {
+      requestAnimationFrame(() => agPanel.classList.add('show'));
+    } else {
+      agPanel.classList.remove('show');
+    }
+  });
+
+  agClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    agWidget.classList.remove('open');
+    agPanel.classList.remove('show');
+    writeAgState({ open: false });
+  });
+
+  agTabs.forEach(tab => tab.addEventListener('click', () => loadTab(tab, 0, true)));
+
+  // Side section nav (scrollspy)
+  const tocItems = document.querySelectorAll('.toc-item');
+  const tocSections = Array.from(tocItems).map(item =>
+    document.getElementById(item.getAttribute('data-target'))
+  ).filter(Boolean);
+
+  const tocObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const item = document.querySelector(`.toc-item[data-target="${entry.target.id}"]`);
+      if (!item) return;
+      if (entry.isIntersecting) {
+        tocItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+  tocSections.forEach(sec => tocObserver.observe(sec));
+
+  // Click-through carousels (Creating the Experience / Design Result)
+  function initCarousel(root){
+    const slides = Array.from(root.querySelectorAll('.tc-img'));
+    const prevBtn = root.querySelector('[data-carousel-prev]');
+    const nextBtn = root.querySelector('[data-carousel-next]');
+    const currentEl = root.querySelector('[data-carousel-current]');
+    const totalEl = root.querySelector('[data-carousel-total]');
+    let idx = 0;
+    if (totalEl) totalEl.textContent = String(slides.length).padStart(2, '0');
+
+    function show(i){
+      idx = (i + slides.length) % slides.length;
+      slides.forEach((s, n) => s.classList.toggle('active', n === idx));
+      if (currentEl) currentEl.textContent = String(idx + 1).padStart(2, '0');
+    }
+
+    prevBtn.addEventListener('click', () => show(idx - 1));
+    nextBtn.addEventListener('click', () => show(idx + 1));
+
+    const frame = root.querySelector('.tc-frame');
+    frame.addEventListener('click', (e) => {
+      const rect = frame.getBoundingClientRect();
+      const clickedRight = (e.clientX - rect.left) > rect.width / 2;
+      show(idx + (clickedRight ? 1 : -1));
+    });
+
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(idx - 1);
+      if (e.key === 'ArrowRight') show(idx + 1);
+    });
+  }
+
+  ['expCarousel', 'resultCarousel'].forEach(id => {
+    const root = document.getElementById(id);
+    if (root) initCarousel(root);
+  });
+
+</script>
+
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+</body>
+</html>
