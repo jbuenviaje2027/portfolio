@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>Site check</title>
+<style>
+body{font:16px/1.5 system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#17170F;background:#F7F6F1}
+h1{font-size:1.6rem;margin-bottom:6px}.sub{color:#6A675B;margin-bottom:24px}
+.box{padding:18px 22px;border-radius:18px;font-weight:600;margin-bottom:22px}
+.ok{background:#D5F0E1;color:#0B5A33}.bad{background:#FBDAD5;color:#8A1F10}.wait{background:#EFEDE5}
+ul{padding-left:20px}li{margin:4px 0;font-family:ui-monospace,monospace;font-size:.9rem}
+a{color:inherit}
+</style></head><body>
+<h1>Portfolio file check</h1>
+<p class="sub">This page tries to load every photo and video the site needs, and lists any that are missing. You can delete <code>check.html</code> afterwards.</p>
+<div id="summary" class="box wait">Checking...</div>
+<ul id="missing"></ul>
+<p class="sub" style="margin-top:28px"><a href="index.html">Open the portfolio</a></p>
+<script>
+var files = ["img/about/intro-1.jpg", "img/about/intro-2.jpg", "img/about/josh-about.jpg", "img/about/shirt-little.jpg", "img/about/shirt-now.jpg", "img/community/big-signs.jpg", "img/community/exhibition.jpg", "img/community/lounge.jpg", "img/community/nso-checkin.jpg", "img/graphic-design/aasib-2024-25.jpg", "img/graphic-design/newly-declared.jpg", "img/graphic-design/pumpkin-carving.jpg", "img/graphic-design/toulouvre-ra.jpg", "img/graphic-design/trick-or-treating.jpg", "img/graphic-design/west-flo-postcard.jpg", "img/node/cover.jpg", "img/node/exhibit-makeout.png", "img/node/exhibit-pxl.jpg", "img/node/hero.jpg", "img/photography/cover.jpg", "img/photography/frame-01.jpg", "img/photography/frame-02.jpg", "img/photography/frame-03.jpg", "img/photography/frame-04.jpg", "img/photography/frame-05.jpg", "img/photography/frame-06.jpg", "img/photography/frame-07.jpg", "img/photography/frame-08.jpg", "img/photography/frame-09.jpg", "img/photography/frame-10.jpg", "img/photography/frame-11.jpg", "img/photography/frame-12.jpg", "img/roadtrip/arizona.jpg", "img/roadtrip/bristol.jpg", "img/roadtrip/grand-canyon.jpg", "img/roadtrip/las-vegas.jpg", "img/roadtrip/maryland.jpg", "img/roadtrip/nashville.jpg", "img/roadtrip/santa-cruz.jpg", "img/roadtrip/washington-dc.jpg", "img/serendipi-tea/cover.jpg", "img/serendipi-tea/experience-1.jpg", "img/serendipi-tea/experience-2.jpg", "img/serendipi-tea/experience-3.jpg", "img/serendipi-tea/experience-4.jpg", "img/serendipi-tea/final-solution.jpg", "img/serendipi-tea/hero.jpg", "img/serendipi-tea/prototype-humans.jpg", "img/serendipi-tea/prototype-quilt.jpg", "img/serendipi-tea/prototype-thirdspace.jpg", "img/serendipi-tea/result-1.jpg", "img/serendipi-tea/result-2.jpg", "img/simone/cover.jpg", "img/simone/final-pitch.jpg", "img/simone/hero.jpg", "img/simone/photo-01.jpg", "img/simone/photo-01b.jpg", "img/simone/photo-08.jpg", "img/simone/photo-09.jpg", "img/simone/photo-10.jpg", "img/simone/photo-11.jpg", "img/simone/photo-12.jpg", "img/simone/photo-13.jpg", "img/simone/photo-16.jpg", "img/simone/photo-17.jpg", "img/simone/photo-18.jpg", "img/simone/photo-19.jpg", "img/simone/photo-20.jpg", "img/simone/photo-21.jpg", "img/simone/photo-24.jpg", "img/simone/photo-25.jpg", "img/simone/photo-27.jpg", "img/simone/photo-28.jpg", "img/simone/photo-29.jpg", "img/simone/photo-30.jpg", "img/simone/photo-31.jpg", "img/simone/photo-32.jpg", "img/simone/photo-33.jpg", "img/simone/photo-34.jpg", "img/simone/photo-35.jpg", "img/simone/photo-36.jpg", "img/simone/photo-37.jpg", "img/simone/photo-38.jpg", "img/simone/photo-39.jpg", "img/simone/photo-40.jpg", "img/simone/photo-41.jpg", "img/simone/photo-42.jpg", "img/simone/photo-43.jpg", "img/simone/photo-44.jpg", "img/simone/photo-45.jpg", "img/simone/trend-01.jpg", "img/simone/trend-02.jpg", "img/simone/trend-03.jpg", "img/simone/trend-04.jpg", "img/simone/trend-05.jpg", "img/simone/trend-06.jpg", "img/simone/trend-07.jpg", "img/simone/trend-08.jpg", "img/simone/trend-09.jpg", "img/simone/trend-10.jpg", "img/simone/trend-11.jpg", "img/simone/trend-12.jpg", "videos/serendipi-tea-recap.mp4"];
+var summary = document.getElementById('summary'), list = document.getElementById('missing');
+var done = 0, missing = [];
+function finish(){
+  done++;
+  summary.textContent = 'Checking... ' + done + ' of ' + files.length;
+  if(done === files.length){
+    if(missing.length){
+      summary.className = 'box bad';
+      summary.textContent = missing.length + ' of ' + files.length + ' files are missing or failed to load. Upload these:';
+      missing.forEach(function(m){ var li = document.createElement('li'); li.textContent = m; list.appendChild(li); });
+    } else {
+      summary.className = 'box ok';
+      summary.textContent = 'All ' + files.length + ' photos and videos were found.';
+    }
+  }
+}
+var bust = '?v=' + Date.now();
+files.forEach(function(f){
+  if(/\.(jpe?g|png|webp|gif)$/i.test(f)){
+    var im = new Image();
+    im.onload = finish;
+    im.onerror = function(){ missing.push(f); finish(); };
+    im.src = f + bust;
+  } else {
+    fetch(f + bust, {method:'HEAD', cache:'no-store'}).then(function(r){ if(!r.ok) missing.push(f); finish(); })
+      .catch(function(){ missing.push(f); finish(); });
+  }
+});
+</script></body></html>
