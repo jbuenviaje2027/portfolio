@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>Site check</title>
+<style>
+body{font:16px/1.5 system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#17170F;background:#F7F6F1}
+h1{font-size:1.6rem;margin-bottom:6px}.sub{color:#6A675B;margin-bottom:24px}
+.box{padding:18px 22px;border-radius:18px;font-weight:600;margin-bottom:22px}
+.ok{background:#D5F0E1;color:#0B5A33}.bad{background:#FBDAD5;color:#8A1F10}.wait{background:#EFEDE5}
+ul{padding-left:20px}li{margin:4px 0;font-family:ui-monospace,monospace;font-size:.9rem}
+a{color:inherit}
+</style></head><body>
+<h1>Portfolio file check</h1>
+<p class="sub">This page tries to load every photo and video the site needs, and lists any that are missing. You can delete <code>check.html</code> afterwards.</p>
+<div id="summary" class="box wait">Checking...</div>
+<ul id="missing"></ul>
+<p class="sub" style="margin-top:28px"><a href="index.html">Open the portfolio</a></p>
+<script>
+var files = ["about/intro-1.jpg", "about/intro-2.jpg", "about/josh-about.jpg", "about/shirt-little.jpg", "about/shirt-now.jpg", "community/big-signs.jpg", "community/exhibition.jpg", "community/lounge.jpg", "community/nso-checkin.jpg", "graphic-design/aasib-2024-25.jpg", "graphic-design/newly-declared.jpg", "graphic-design/pumpkin-carving.jpg", "graphic-design/toulouvre-ra.jpg", "graphic-design/trick-or-treating.jpg", "graphic-design/west-flo-postcard.jpg", "node/cover.jpg", "node/exhibit-makeout.png", "node/exhibit-pxl.jpg", "node/hero.jpg", "photography/cover.jpg", "photography/frame-01.jpg", "photography/frame-02.jpg", "photography/frame-03.jpg", "photography/frame-04.jpg", "photography/frame-05.jpg", "photography/frame-06.jpg", "photography/frame-07.jpg", "photography/frame-08.jpg", "photography/frame-09.jpg", "photography/frame-10.jpg", "photography/frame-11.jpg", "photography/frame-12.jpg", "roadtrip/arizona.jpg", "roadtrip/bristol.jpg", "roadtrip/grand-canyon.jpg", "roadtrip/las-vegas.jpg", "roadtrip/maryland.jpg", "roadtrip/nashville.jpg", "roadtrip/santa-cruz.jpg", "roadtrip/washington-dc.jpg", "serendipi-tea/cover.jpg", "serendipi-tea/experience-1.jpg", "serendipi-tea/experience-2.jpg", "serendipi-tea/experience-3.jpg", "serendipi-tea/experience-4.jpg", "serendipi-tea/final-solution.jpg", "serendipi-tea/hero.jpg", "serendipi-tea/prototype-humans.jpg", "serendipi-tea/prototype-quilt.jpg", "serendipi-tea/prototype-thirdspace.jpg", "serendipi-tea/result-1.jpg", "serendipi-tea/result-2.jpg", "simone/cover.jpg", "simone/final-pitch.jpg", "simone/hero.jpg", "simone/photo-01.jpg", "simone/photo-01b.jpg", "simone/photo-08.jpg", "simone/photo-09.jpg", "simone/photo-10.jpg", "simone/photo-11.jpg", "simone/photo-12.jpg", "simone/photo-13.jpg", "simone/photo-16.jpg", "simone/photo-17.jpg", "simone/photo-18.jpg", "simone/photo-19.jpg", "simone/photo-20.jpg", "simone/photo-21.jpg", "simone/photo-24.jpg", "simone/photo-25.jpg", "simone/photo-27.jpg", "simone/photo-28.jpg", "simone/photo-29.jpg", "simone/photo-30.jpg", "simone/photo-31.jpg", "simone/photo-32.jpg", "simone/photo-33.jpg", "simone/photo-34.jpg", "simone/photo-35.jpg", "simone/photo-36.jpg", "simone/photo-37.jpg", "simone/photo-38.jpg", "simone/photo-39.jpg", "simone/photo-40.jpg", "simone/photo-41.jpg", "simone/photo-42.jpg", "simone/photo-43.jpg", "simone/photo-44.jpg", "simone/photo-45.jpg", "simone/trend-01.jpg", "simone/trend-02.jpg", "simone/trend-03.jpg", "simone/trend-04.jpg", "simone/trend-05.jpg", "simone/trend-06.jpg", "simone/trend-07.jpg", "simone/trend-08.jpg", "simone/trend-09.jpg", "simone/trend-10.jpg", "simone/trend-11.jpg", "simone/trend-12.jpg", "videos/serendipi-tea-recap.mp4"];
+var summary = document.getElementById('summary'), list = document.getElementById('missing');
+var done = 0, missing = [];
+function finish(){
+  done++;
+  summary.textContent = 'Checking... ' + done + ' of ' + files.length;
+  if(done === files.length){
+    if(missing.length){
+      summary.className = 'box bad';
+      summary.textContent = missing.length + ' of ' + files.length + ' files are missing or failed to load. Upload these:';
+      missing.forEach(function(m){ var li = document.createElement('li'); li.textContent = m; list.appendChild(li); });
+    } else {
+      summary.className = 'box ok';
+      summary.textContent = 'All ' + files.length + ' photos and videos were found.';
+    }
+  }
+}
+var bust = '?v=' + Date.now();
+files.forEach(function(f){
+  if(/\.(jpe?g|png|webp|gif)$/i.test(f)){
+    var im = new Image();
+    im.onload = finish;
+    im.onerror = function(){ missing.push(f); finish(); };
+    im.src = f + bust;
+  } else {
+    fetch(f + bust, {method:'HEAD', cache:'no-store'}).then(function(r){ if(!r.ok) missing.push(f); finish(); })
+      .catch(function(){ missing.push(f); finish(); });
+  }
+});
+</script></body></html>
